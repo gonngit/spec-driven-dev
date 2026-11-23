@@ -1,0 +1,124 @@
+<!--
+  explain-full-flow body. Build the page from the explain-diff template
+  (skill://explain-diff/assets/template.html): keep its head, styles and quiz script as they are,
+  replace its whole main element with the main element below, then replace every {{PLACEHOLDER}}.
+  Code excerpts: pre.diff with one span.ctx per line, spans back to back with no line breaks between
+  them (each span is already one line); add class "mark" to the lines to look at.
+  Labels: confirmed / read / guess / question (확인 / 읽음 / 추정 / 질문).
+-->
+<main>
+
+<header>
+  <p class="kicker">{{DATA FLOW · repo-name @ abc1234}}</p>
+  <h1>{{TITLE — what happens, in reader terms}}</h1>
+  <div class="meta"><span>{{repository}} @ {{commit}} ({{branch}})</span><span>{{date written, YYYY-MM-DD}}</span><span>{{start}} → {{end}}</span><span>{{N}} stages</span></div>
+  <div class="assumption">{{READER ASSUMPTION and PURPOSE — who this is written for and why they are reading. SCOPE — what was not followed, how much was run versus only read, whether uncommitted changes are included. DEFAULT LABEL — e.g. "unless marked, statements were read in the code, not run"}}</div>
+</header>
+
+<section id="background">
+  <h2>1. {{Background: what you need to know first}}</h2>
+  <p>{{Where this flow sits in the whole system}}</p>
+  <!-- Prerequisite concepts. Deep material goes in <details>. -->
+  <details>
+    <summary>{{Concept, e.g. "How a memory record predicts forgetting"}}</summary>
+    <p>{{explanation with a concrete example}}</p>
+  </details>
+</section>
+
+<section id="idea">
+  <h2>2. {{The flow in one sentence}}</h2>
+  <p class="intuition">{{ONE-SENTENCE INTUITION}}</p>
+  <p>{{3–6 sentence plain-language expansion}}</p>
+</section>
+
+<section id="dataflow">
+  <h2>3. {{Follow the data}}</h2>
+  <figure>
+    <!-- Static inline SVG: each stage is a box that names its file; each arrow carries the EXAMPLE VALUE
+         in the shape it has at that point; boundaries are dashed lines. Same stage names and order as
+         the table below and section 4. Colors from the tokens. -->
+    <figcaption>{{caption: which example value is followed, and where it came from (a test, a real run, read not run)}}</figcaption>
+  </figure>
+  <table>
+    <thead><tr><th>{{Stage}}</th><th>{{Takes in}}</th><th>{{Does}}</th><th>{{Hands on}}</th><th>{{Stored or sent}}</th><th>{{File}}</th></tr></thead>
+    <tbody>
+      <tr><td><a href="#stage-1">{{1. action}}</a></td><td>{{example value, as it arrives}}</td><td>{{one line}}</td><td>{{example value, as it leaves}}</td><td>{{where, or —}}</td><td><code>{{path}}</code></td></tr>
+    </tbody>
+  </table>
+
+  <!-- Optional. Keep this block only if a widget passes the gate in Step 5; otherwise delete it. -->
+  <h3 id="explore">{{Try other inputs}}</h3>
+  <p>{{One sentence telling the reader what to try}}</p>
+  <div class="widget">
+    <div class="live"><!-- controls: sample inputs or small fields, plus a control for any answer the page cannot compute; a per-stage .readout --></div>
+    <div class="static-fallback"><!-- table of 3–5 sample inputs: the stage that stops each one, and the result --></div>
+    <div class="mirrors">Mirrors <code>{{functionName()}}</code> in <code>{{path}}</code></div>
+  </div>
+  <p>{{What the reader should have noticed}}</p>
+</section>
+
+<section id="walkthrough">
+  <h2>4. {{The flow, stage by stage}}</h2>
+
+  <div class="step" id="stage-1">
+    <h3>{{Stage 1 — action-named heading}}</h3>
+    <p class="why">{{Why this stage}}</p>
+    <p class="file-role"><b>{{path/to/file}}:{{line}}</b> — {{role of this file in the system}}</p>
+<pre class="diff"><span class="ctx">{{code line}}</span><span class="ctx mark">{{the line to look at}}</span><span class="skip">… {{n}} lines omitted …</span></pre>
+    <p>{{what to look at}}</p>
+    <table>
+      <thead><tr><th>{{In}}</th><th>{{Out}}</th></tr></thead>
+      <tbody><tr><td><code>{{example value entering this stage}}</code></td><td><code>{{example value leaving this stage}}</code></td></tr></tbody>
+    </table>
+    <p class="bridge">{{what this stage makes possible / what it leaves for the next stage}}</p>
+  </div>
+</section>
+
+<section id="change">
+  <h2>5. {{Changing it safely}}</h2>
+  <table>
+    <thead><tr><th>{{To do this}}</th><th>{{Touch these, in this order}}</th></tr></thead>
+    <tbody>
+      <tr><td>{{e.g. add a field}}</td><td>{{shape definition → producer → store → reader → screen → tests, with paths}}</td></tr>
+    </tbody>
+  </table>
+  <h3 id="cautions">{{Cautions}}</h3>
+  <ul><li><b>[{{label}}]</b> {{input → consequence, with the stage and path}}</li></ul>
+  <h3 id="not-followed">{{Not followed}}</h3>
+  <ul class="other"><li><code>{{path}}</code> — {{what hangs off the path here, one line}}</li></ul>
+</section>
+
+<!--
+  Quiz. Write only the questions; the template's script does the rest.
+  - data-answer on each <li> = the data-opt of the correct option.
+  - .explain is hidden until the reader answers. Link it to the section or stage to re-read.
+  - Translate the data-* messages on <section> into the document's language.
+    {n} = first-try correct count, {total} = number of questions.
+-->
+<section id="quiz"
+  data-msg-pass="{{e.g. {n} / {total} on the first try — you understand this flow. Ready to change it.}}"
+  data-msg-fail="{{e.g. {n} / {total} on the first try. Re-read the linked sections, then try again.}}"
+  data-msg-retry="{{e.g. Try again}}"
+  data-msg-key="{{e.g. Answer key}}">
+  <h2>6. {{Check your understanding}}</h2>
+  <p class="quiz-intro">{{One line on the purpose: this is not a test score. It shows what you have not understood yet. A good rule: do not change this flow until you pass.}}</p>
+  <ol class="quiz">
+    <li data-answer="b">
+      <p class="q-text">{{Question about structure or principle — predict, apply, or explain why}}</p>
+      <div class="opts">
+        <button type="button" data-opt="a">{{plausible misreading}}</button>
+        <button type="button" data-opt="b">{{correct answer}}</button>
+        <button type="button" data-opt="c">{{plausible misreading}}</button>
+      </div>
+      <div class="explain" hidden>
+        <p>{{Why the right answer is right, and what the tempting wrong one gets wrong}}</p>
+        <a href="#{{id of the section or stage}}">{{Re-read: Stage 2}}</a>
+      </div>
+    </li>
+  </ol>
+  <p class="quiz-result" hidden aria-live="polite"></p>
+  <button type="button" class="quiz-retry" hidden></button>
+  <div class="answer-key"></div>
+</section>
+
+</main>

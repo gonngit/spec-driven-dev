@@ -1,0 +1,124 @@
+<!--
+  explain-full-map body. Build the page from the explain-diff template
+  (skill://explain-diff/assets/template.html): keep its head, styles and quiz script as they are,
+  replace its whole main element with the main element below, then replace every {{PLACEHOLDER}}.
+  Code excerpts: pre.diff with one span.ctx per line, spans back to back with no line breaks between
+  them (each span is already one line); add class "mark" to the lines to look at.
+  Labels: confirmed / read / guess / question (확인 / 읽음 / 추정 / 질문).
+-->
+<main>
+
+<header>
+  <p class="kicker">{{REPO MAP · repo-name @ abc1234}}</p>
+  <h1>{{TITLE — what this repository is, in reader terms}}</h1>
+  <div class="meta"><span>{{repository}} @ {{commit}} ({{branch}})</span><span>{{date written, YYYY-MM-DD}}</span><span>{{N}} files</span><span>{{main languages of the product code}}</span></div>
+  <div class="assumption">{{READER ASSUMPTION — who this is written for. SCOPE — what this map covers and leaves out, whether uncommitted changes are included, how much was run versus only read. DEFAULT LABEL — e.g. "unless marked, statements were read in the code, not run"}}</div>
+</header>
+
+<section id="background">
+  <h2>1. {{Background: what this repository is for}}</h2>
+  <p>{{The problem it solves, who uses it, the stack}}</p>
+  <!-- Prerequisite concepts. Deep material goes in <details>. -->
+  <details>
+    <summary>{{Concept, e.g. "How server actions differ from API routes"}}</summary>
+    <p>{{explanation with a concrete example}}</p>
+  </details>
+</section>
+
+<section id="idea">
+  <h2>2. {{The system in one picture}}</h2>
+  <p class="intuition">{{ONE-SENTENCE INTUITION}}</p>
+  <p>{{3–6 sentence plain-language expansion}}</p>
+  <figure>
+    <!-- Static inline SVG system diagram: runtime pieces, data stores, external services.
+         A box names its folder or file; an arrow carries EXAMPLE DATA (one concrete value followed
+         across the system); a dashed line is a boundary. Colors from the tokens. -->
+    <figcaption>{{caption: which example value is followed, and where it came from}}</figcaption>
+  </figure>
+</section>
+
+<section id="data">
+  <h2>3. {{Data dictionary}}</h2>
+  <p>{{One line: what the system keeps, in plain words}}</p>
+  <table>
+    <thead><tr><th>{{Data}}</th><th>{{Shape defined in}}</th><th>{{Lives in}}</th><th>{{Created by}}</th><th>{{Read by}}</th></tr></thead>
+    <tbody>
+      <tr><td>{{name the repository uses}} <b>[{{label}}]</b></td><td><code>{{path/to/schema}}</code></td><td>{{store · collection / table / bucket}}</td><td>{{who writes it}}</td><td>{{who reads it}}</td></tr>
+    </tbody>
+  </table>
+  <p>{{2–4 sentences on the relationships that matter}}</p>
+</section>
+
+<section id="folders">
+  <h2>4. {{Folder map}}</h2>
+  <table>
+    <thead><tr><th>{{Path}}</th><th>{{Role}}</th><th>{{Evidence}}</th><th>{{Files}}</th></tr></thead>
+    <tbody>
+      <tr><td><code>{{path/}}</code></td><td>{{one line}}</td><td><code>{{a file that shows it}}</code></td><td>{{n}}</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="flows">
+  <h2>5. {{Data flows}}</h2>
+  <table>
+    <thead><tr><th>{{Flow}}</th><th>{{Starts at}}</th><th>{{Stores it touches}}</th><th>{{Ends at}}</th></tr></thead>
+    <tbody>
+      <tr><td>{{start → end}}</td><td><code>{{entry file}}</code></td><td>{{stores}}</td><td>{{where the data rests or is shown}}</td></tr>
+    </tbody>
+  </table>
+
+  <h3 id="sample-flow">{{Sample flow: start → end}}</h3>
+  <p class="why">{{Why this flow first}}</p>
+  <table>
+    <thead><tr><th>{{Stage}}</th><th>{{Takes in}}</th><th>{{Does}}</th><th>{{Hands on}}</th><th>{{Stored or sent}}</th><th>{{File}}</th></tr></thead>
+    <tbody>
+      <tr><td>{{1. action}}</td><td>{{example value, as it arrives}}</td><td>{{one line}}</td><td>{{example value, as it leaves}}</td><td>{{where, or —}}</td><td><code>{{path}}</code></td></tr>
+    </tbody>
+  </table>
+  <p class="file-role"><b>{{path/to/file}}:{{line}}</b> — {{role of this file in the flow}}</p>
+<pre class="diff"><span class="ctx">{{code line}}</span><span class="ctx mark">{{the line to look at}}</span><span class="skip">… {{n}} lines omitted …</span></pre>
+  <p class="bridge">{{Each row of the flow list can become its own document: run explain-full-flow on it}}</p>
+</section>
+
+<section id="rules">
+  <h2>6. {{Rules and cautions}}</h2>
+  <ul><li><b>[{{label}}]</b> {{rule, boundary, mismatch or untested area — with its path}}</li></ul>
+  <h3 id="left-out">{{Left out}}</h3>
+  <ul class="other"><li>{{what was not read or covered, and why}}</li></ul>
+</section>
+
+<!--
+  Quiz. Write only the questions; the template's script does the rest.
+  - data-answer on each <li> = the data-opt of the correct option.
+  - .explain is hidden until the reader answers. Link it to the section to re-read.
+  - Translate the data-* messages on <section> into the document's language.
+    {n} = first-try correct count, {total} = number of questions.
+-->
+<section id="quiz"
+  data-msg-pass="{{e.g. {n} / {total} on the first try — you know your way around this repository.}}"
+  data-msg-fail="{{e.g. {n} / {total} on the first try. Re-read the linked sections, then try again.}}"
+  data-msg-retry="{{e.g. Try again}}"
+  data-msg-key="{{e.g. Answer key}}">
+  <h2>7. {{Check your understanding}}</h2>
+  <p class="quiz-intro">{{One line on the purpose: this is not a test score. It shows which parts of the map have not stuck yet.}}</p>
+  <ol class="quiz">
+    <li data-answer="b">
+      <p class="q-text">{{Question about structure or principle — predict, apply, or explain why}}</p>
+      <div class="opts">
+        <button type="button" data-opt="a">{{plausible misreading}}</button>
+        <button type="button" data-opt="b">{{correct answer}}</button>
+        <button type="button" data-opt="c">{{plausible misreading}}</button>
+      </div>
+      <div class="explain" hidden>
+        <p>{{Why the right answer is right, and what the tempting wrong one gets wrong}}</p>
+        <a href="#{{id of the section}}">{{Re-read: section 3}}</a>
+      </div>
+    </li>
+  </ol>
+  <p class="quiz-result" hidden aria-live="polite"></p>
+  <button type="button" class="quiz-retry" hidden></button>
+  <div class="answer-key"></div>
+</section>
+
+</main>
