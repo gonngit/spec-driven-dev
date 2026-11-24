@@ -12,7 +12,7 @@ Show this to the user at kickoff and put in only what is approved. Do not add ru
 ## Work journal
 
 - At the end of every step, the step **MUST** be recorded in `docs/journal/YYYY-MM-DD.md`.
-- Items written for every step: request or question, what was done, verification. Write the other items (answer, decision, rejected alternatives, observations) only when they have content.
+- Items written for every step: request or question, what was done, verification. A step that only commits or pushes writes the first two. Write the other items (answer, decision, rejected alternatives, observations) only when they have content.
 - Project documents hold only conclusions. The process goes into the journal.
 
 ## Documents
@@ -26,5 +26,4 @@ Show this to the user at kickoff and put in only what is approved. Do not add ru
 | Question | Why it is asked first |
 |---|---|
 | What is the purpose of the project? | The answer sets the kind of output and how finished it has to be. |
-| Where is the process recorded? | It sets the location and the format of the journal. |
 | How far is it implemented? | It sets the number of slices. |

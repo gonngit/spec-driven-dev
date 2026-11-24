@@ -10,7 +10,7 @@
 4. Where it does not comply: if the documents hold the answer, write the test first and fix it. If it needs a new decision, do not fix it. Leave it in the list.
 5. Where nothing enforces it: add a test (`principles/encode-in-checks.md`). Do not add a test that does not match the sentence exactly.
 6. Inject defects one at a time and run the whole test suite. Record which test caught each. Restore (`principles/see-it-fail.md`).
-7. Fix the document defects that the conformance check found. Run `scripts/sdd-check.py trace` and `scripts/sdd-check.py keywords`.
+7. List the document defects that the conformance check found. Fix only the ones the user approves. Run `scripts/sdd-check.py trace` and `scripts/sdd-check.py keywords`.
 8. Do the **Wrap-up** (`wrap-up.md`).
 
 **Report:** the table of the four groups, what was fixed, the tests added and the sentence each enforces, the defect-injection table, the non-compliance left unfixed and the decision it needs, the scope the conformance check did not cover.

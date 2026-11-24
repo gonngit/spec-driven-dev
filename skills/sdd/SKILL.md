@@ -10,7 +10,7 @@ The playbooks, principles, references and script sit next to this file (this ski
 
 The project rules file depends on the harness: `CLAUDE.md` in Claude Code, `.omp/AGENTS.md` in omp. Wherever this skill says `CLAUDE.md`, it means that file in the current harness.
 
-A **step** is one request and its journal entry. The numbered items of a playbook are **playbook steps**.
+A **step** is one request and its journal entry. The numbered items of a playbook are **playbook steps**. A **slice** is the smallest flow that a user can run from start to end once; its documents, its number and its branch are described in `references/doc-templates.md`.
 
 ## Always
 
@@ -19,7 +19,7 @@ A **step** is one request and its journal entry. The numbered items of a playboo
 - One request → one step. Stop when the step ends. `principles/user-drives-the-pace.md`.
 - End of a step → **Wrap-up** (`playbooks/wrap-up.md`). Write the journal for every step, including a step that only commits or pushes.
 - Before saying "done" → `principles/see-it-fail.md` and `principles/real-surface.md`.
-- You meet something the documents do not decide → `principles/mark-the-source.md`. If the decision requires changing a document, stop and get approval. Otherwise decide it and record it in the journal as "decided by the AI".
+- You meet something the documents do not decide → `principles/mark-the-source.md`. If the decision requires changing a document, stop and get approval. Otherwise decide it and record it in the journal under "Decision (AI)".
 - A MUST in the project rules (`CLAUDE.md`, ADRs) is inconvenient → `principles/rules-as-written.md`. Do not narrow the rule.
 - Writing or changing a document → `references/doc-style.md`. Documents are written in the language the user writes in, Korean or English.
 - Committing → read `git status` first. Stage files by path. Do not use `git add -A`.
@@ -47,7 +47,7 @@ Read `principles/<name>.md` to the end before you apply a principle. Cite only p
 
 - **Inside a step, proceed without asking.** These can be undone: reading, running tests and builds, running it for real (a server on another port), extracting a copy into a scratch folder and building it, injecting a defect temporarily and restoring it.
 - **Between steps, stop.** Start the next plan task, the fix for a review note, or a commit only when the user asks.
-- **Always stop and ask.** Pushing. Changing the history of pushed commits. Deleting or committing files you did not create. Changing the meaning of an approved document. A decision that requires changing a document (`principles/mark-the-source.md`). Changing the project rules. Sending information outside.
+- **Always stop and ask.** Pushing. Creating or switching a branch. Changing the history of pushed commits. Deleting or committing files you did not create. Changing the meaning of an approved document. A decision that requires changing a document (`principles/mark-the-source.md`). Changing the project rules. Sending information outside.
 - **Write approved decisions into the documents.** Add "Revised (date): what" to the status line. Do not add anything unapproved to an approved document.
 - **You may disagree.** If you have grounds, give a different recommendation. If the user chooses against your recommendation, do it their way and record that fact and its result in the journal.
 
@@ -55,7 +55,7 @@ Read `principles/<name>.md` to the end before you apply a principle. Cite only p
 
 - The main conversation owns the playbook and the todo list. Do not hand the execution of a playbook to a subagent.
 - Restate the user's goal in every subagent brief. A subagent's report is not evidence. Read the diff and the output yourself.
-- Review is done by an agent that did not write the change: `sdd-reviewer`. Do not give it your conclusions. Give it only the target and the document paths.
+- Review is done by an agent that did not write the change: `sdd-reviewer`. Do not give it your conclusions. Give it only the target, the document paths and the user's goal.
 
 ## Reporting
 
@@ -69,6 +69,8 @@ Read `principles/<name>.md` to the end before you apply a principle. Cite only p
 
 Pick the one playbook that fits the request. Open `playbooks/<name>.md`. Copy its playbook steps into the todo list as they are, then add the detailed todos of the task. Leave a playbook step you do not do as `skip: <reason>`. If none fits, use `playbooks/figure-it-out.md`.
 
+A small addition inside an existing slice does not need a kickoff. It is small when it needs no new ADR, at most three acceptance criteria and one plan task. Say whether the request is a small addition or a new slice and why; the user decides. Show the new acceptance criteria and the task and get approval. Then **Design docs** appends them to that slice's spec and plan with "Revised (date): what" on the status line, and **Plan task** implements the task. If the slice is already merged, propose a branch `slice/NN-<name>-<addition>`. Anything else that is new goes to **Kickoff**.
+
 - **Kickoff** (`playbooks/kickoff.md`). Brainstorming for a new project or a new slice. Draw the topics out of what the user says and the input material, discuss them one at a time, and close them. Write no code. ("kickoff", "brainstorming", "draw out the intent")
 - **Design docs** (`playbooks/design-docs.md`). Write or rewrite a slice's spec, domain, ADRs and plan. Unlike kickoff, it fixes decisions in documents. ("write the spec", "ADR", "make the plan")
 - **Plan task** (`playbooks/plan-task.md`). Implement one task of the plan, test first. ("do task 3", "go on with the next task")
@@ -76,15 +78,15 @@ Pick the one playbook that fits the request. Open `playbooks/<name>.md`. Copy it
 - **Fix** (`playbooks/fix.md`). Fix one review note or one defect. Unlike a plan task, it is not a new feature. ("fix note 1", "fix this defect", "close the gap")
 - **Conformance** (`playbooks/conformance.md`). Check every MUST in the documents against the code and the tests. Unlike review, the target is the whole set of documents, not a commit. ("verify the code against the documents", "does every AC have a test")
 - **Confirm decisions** (`playbooks/decisions.md`). Collect the decisions the AI made that the user has not confirmed, and get approval. ("approve the proposals", "what needs confirmation")
-- **Status** (`playbooks/status.md`). Read only. Answer with the remaining work in four lists. ("what is left", "where are we")
+- **Status** (`playbooks/status.md`). Changes nothing but the journal. Answer with the remaining work in four lists. ("what is left", "where are we")
 - **Wrap-up** (`playbooks/wrap-up.md`). Do it at the end of every playbook. Journal, report, and a commit when asked. ("commit")
 - **Figure it out** (`playbooks/figure-it-out.md`). When no playbook fits. Design the playbook steps, then run them.
 
 ## Check script
 
-`scripts/sdd-check.py` turns written rules into checks. The playbooks call it. Do not change the script, the IDs or the end conditions to make it pass.
+`scripts/sdd-check.py` turns written rules into checks. The playbooks call it. Run it from the project root: it reads `docs/`, the test folder and git from the current directory. Do not change the script, the IDs or the end conditions to make it pass.
 
-- `trace`: is every ID in the spec and the domain present in the plan and in the test names?
+- `trace`: is every ID in the spec and the domain present in the plan and in the test names? Until the last task of a slice, IDs of tasks not built yet have no test; that is expected.
 - `keywords`: are the RFC 2119 keywords in the documents used by the rules?
 - `journal`: did today's journal change together with this change?
 - `self`: do this skill's index and files agree?

@@ -12,4 +12,4 @@ A MUST has no exceptions. If a rule is inconvenient, do not narrow it. Bring the
 
 **Stop:** Do not make a change to the rules that the user did not decide.
 
-**Evidence:** The journal has a "Rules not followed" item (the rule broken, the reason, how it was closed later).
+**Evidence:** The journal has a "Rules not followed" item (the rule broken, the reason). How it was closed is recorded in the step that closed it.

@@ -8,6 +8,7 @@ For every fact in the journal, a review note or a report, say how you know it. A
 - There are four labels. **verified**: you ran it and saw it. **read**: you read the code or a document and did not run it. **assumed**: you did not verify it. **question**: it is for the user to decide.
 - Attach the method to "verified" ("verified by running it", "verified by injecting a defect").
 - Mark a fact that comes from memory "from memory, not verified".
+- Count a number that goes into a document with a command. Do not write it from memory.
 - Turn cheap assumptions into verified facts. Leave the ones you could not turn under "Open" in the report.
 - If you later learn that something was wrong, do not delete the earlier record. Write "wrong" and the correct fact in a new step.
 

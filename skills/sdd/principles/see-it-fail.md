@@ -6,8 +6,10 @@ A check you have never seen fail proves nothing. Inject a defect and see red.
 
 **How:**
 - Write the test first and see it fail. A compile failure says only "the code does not exist". Put in an empty shell and see the assertion fail.
+- After writing a test, ask under what other defect it would still pass. Do not stop at seeing it fail once.
 - For a check that is green from the start, put in a violation temporarily. See that only that check fails. Restore.
 - Add a control. See that the check does not flag an allowed case.
+- For a requirement that says "only A is allowed", write tests for what is not allowed. Look for the paths and inputs that the framework opens by itself.
 - At the end of the task, inject defects one at a time and run the whole test suite. Record in a table which test caught each.
 - Copy the file before you inject a defect, and restore from that copy. Do not restore through git (`git checkout`, `git restore`, `git stash`): uncommitted work is erased along with the defect.
 - A defect the checks missed is a review note. Find out why.

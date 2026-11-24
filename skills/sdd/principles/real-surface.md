@@ -7,6 +7,8 @@ After all tests pass, run it the way it is really used. Verify a fix on the same
 **How:**
 - Run it the way it is really used. A server: start it and send requests. A script or a command-line tool: run it on real input. A screen: open it and click through it. If the port is in use, use another port. Do not change the configuration.
 - Feed it inputs the tests do not have: invisible characters, wrong types, long values, empty input, the same thing done at the same time.
+- Check length and character limits with non-ASCII values (emoji, Hangul, Unicode spaces, characters that grow when their case changes). Store the value and read it back.
+- Do not trust the default behaviour of a library by assumption. When a requirement relies on it, pin it with a test.
 - Turn assumptions into numbers. Do not write "rare"; write "9 out of 12". Measure time.
 - For the behaviour of an earlier commit, extract that commit into a scratch folder and build it. Do not touch the working tree.
 - If something else reproduces the real behaviour (a widget, an example in a document), compare it with the real result.

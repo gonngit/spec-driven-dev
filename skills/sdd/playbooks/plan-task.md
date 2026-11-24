@@ -10,7 +10,7 @@ Work scientifically. Green is evidence only after you have seen red. Tests see o
 4. Run the whole build and the whole test suite. Record the number of tests as before → after.
 5. Inject a defect for the tests that passed from the start and for "must not exist" rules. See the failure and restore (`principles/see-it-fail.md`).
 6. Run it the way it is really used. Also feed it inputs the tests do not have (`principles/real-surface.md`).
-7. Run `scripts/sdd-check.py trace`.
+7. Run `scripts/sdd-check.py trace`. "No test" lines for IDs that belong to later tasks are expected; list them. Any other failure counts.
 8. Write the approved decisions into the documents. Propose adding the remaining work to a later task of the plan.
 9. Do the **Wrap-up** (`wrap-up.md`).
 

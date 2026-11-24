@@ -10,6 +10,14 @@ Keep documents brief. Most of a document is tables. One document answers one que
 | ADR | `docs/adr/NNNN-<decision>.md` | How is it built, and why was that chosen? |
 | plan | `docs/plan/NN-<slice>.md` | In what order is it built, and what verifies it? |
 
+## Slices
+
+- A slice is the smallest flow that a user can run from start to end once. One slice has one brainstorming document, one spec and one plan.
+- Numbers: the project kickoff is `00`. Slice N uses the number N for its brainstorming document, its spec and its plan.
+- The list of slices lives in the project kickoff's brainstorming document (`docs/brainstorming/00-<name>.md`) as a table: number, name, the flow in one line.
+- One slice, one branch: `slice/NN-<name>`. A small addition made after the slice was merged gets its own branch `slice/NN-<name>-<addition>`.
+- A domain document carries the number of the slice that first needed it. A later slice adds to that document for a concept it already covers and creates a new document for a new concept.
+
 ## spec
 
 ```markdown

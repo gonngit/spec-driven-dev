@@ -15,7 +15,7 @@ Write **Request** (or **Question**), **Done** and **Verification** for every ste
 |---|---|---|
 | **Request** or **Question (AI)** | 요청, 질문 (AI) | The user's words in short. If the AI asked, the options and the recommendation. |
 | **Answer (user)** | 답 (사용자) | What the user chose. If it differs from the recommendation, say that too. |
-| **Done (in order)** | 한 일 (순서대로) | Numbered. Record the number of tests as before → after. |
+| **Done (in order)** | 한 일 (순서대로) | Numbered. Record the number of tests as before → after. Name the playbook steps you skipped and why. |
 | **Verification** | 검증 | A table: "What to verify", the result. A table of experiments: what was injected, the result. A table of real results. |
 | **Decision** or **Decision (AI)** | 결정, 결정 (AI) | Tell apart who decided. What you stopped for and got approved goes under **Decision**; everything the AI decided goes under **Decision (AI)**. |
 | **Rejected alternatives** | 버린 대안 | The alternative and why it was rejected. One sentence on its good point too. |

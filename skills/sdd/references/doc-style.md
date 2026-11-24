@@ -20,7 +20,7 @@ The project's own language and rules for documents come first (`CLAUDE.md`). Wha
 - In an English document, write the RFC 2119 words themselves in bold (**MUST**, **MUST NOT**, **SHOULD**, **MAY**). They are keywords only in upper case. Use **MAY** only for permission; for ability or possibility write "can" or "might".
 - In a Korean document, use the Korean forms. Use "~할 수 있다" only for permission; for ability or possibility use other words ("다를 수 있다" → "다른 경우가 있다").
 - Write a prohibition as MUST NOT, not as a negative statement ("it does not contain").
-- Put a "Level" column (Korean: "수준") in a requirements table. The value in the column and the keyword in the sentence must be the same.
+- Put a "Level" column (Korean: "수준") in a requirements table. The cell holds the English word (MUST, MUST NOT, SHOULD, MAY) in both languages, and the keyword in the sentence must match it.
 - Use keywords only in requirements. Do not use them in term tables, context, consequences or rejected alternatives.
 - Do not create a recommendation or a permission that the original sentence did not have.
 - Put "How to read this document" (Korean: "이 문서를 읽는 법") at the top of a document. Keep the keyword table in one document only; the other documents point to that document.
@@ -35,16 +35,17 @@ The project's own language and rules for documents come first (`CLAUDE.md`). Wha
 
 ## Status line
 
-- It is the first item of a document: `- Status: Draft` → `Proposed (by the AI)` → `Approved (decided by the user, YYYY-MM-DD)`.
+- It is the first item of a document: `- Status: Draft` (still being written) → `Proposed (by the AI)` (shown for approval) → `Approved (decided by the user, YYYY-MM-DD)`. When the AI proposed it and the user approved it, write `Approved (proposed by the AI, approved by the user, YYYY-MM-DD)`.
 - When you change a document after approval, add to the line: `Revised (YYYY-MM-DD): what and why`. Do not delete what was there.
 - Where a rewrite narrowed the meaning, write "narrowed". Write "the meaning did not change" only when nothing was narrowed.
-- In a Korean document: `- 상태: 초안` → `제안 (AI가 제안)` → `승인 (사용자가 결정, YYYY-MM-DD)`, and `수정 (YYYY-MM-DD): 무엇을 왜`.
+- In a Korean document: `- 상태: 초안` → `제안 (AI가 제안)` → `승인 (사용자가 결정, YYYY-MM-DD)` or `승인 (AI가 제안, 사용자가 승인, YYYY-MM-DD)`, and `수정 (YYYY-MM-DD): 무엇을 왜`.
 
 ## IDs
 
 - Acceptance criterion: `AC-<goal>.<number>`. Domain rule: `R<number>`.
 - Do not renumber. Append new items at the end.
+- Goal numbers and rule numbers continue across slices. A new spec starts at the next unused goal number; it does not start again at 1. `scripts/sdd-check.py trace` fails when an ID is defined twice.
 
 ## Check
 
-`scripts/sdd-check.py keywords` checks part of these rules: the Level column against the keyword, keywords that are not bold, and a Korean "수 있다" that is not a permission. A level is satisfied by either the Korean form or the English word.
+`scripts/sdd-check.py keywords` checks part of these rules: the Level column against the keyword, keywords that are not bold, and a Korean "수 있다" or "수 없다" outside a bold keyword. A level is satisfied by either the Korean form or the English word.

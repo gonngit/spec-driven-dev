@@ -32,7 +32,7 @@ Review notes are a list of findings. They are not decisions. The user decides wh
 
 Ask the user how to handle the notes. There are three options.
 
-- **Fix now** → the **Fix** playbook. One note is one step.
+- **Fix now** → the **Fix** playbook. One note is one step. Turn the reviewer's claim into a test and see it fail before you fix.
 - **Put into the plan** → add it to "What to verify" of a later task.
 - **Leave** → keep it in the table as it is. **Status** finds it again.
 
