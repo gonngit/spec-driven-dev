@@ -6,7 +6,7 @@ Do only the one step that was requested. Stop when the step ends. Only propose t
 
 **How:**
 - Inside a step, go to the end without asking. Between steps, stop.
-- If the user requests several things at once, do them at once. Bundling is the user's choice.
+- If the user requests several things at once, do them at once. Bundling is the user's choice. Several plan tasks run one after another, one step per task (`references/journal-format.md`); stop after the last.
 - Write the next work you found under "Open" and "Candidate for the next step" in the report.
 - Do not implement during brainstorming or design.
 

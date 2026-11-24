@@ -4,10 +4,10 @@
 
 In work without playbook steps, verification is the first thing to go missing. So decide the verification first.
 
-1. Write the goal and the end condition as sentences that can pass or fail. If you cannot, ask the user.
+1. Write the goal and the end condition as sentences that can pass or fail. If you cannot, ask the user. If the end condition is a requirement no document states, quote the new acceptance criterion, get approval, and let the user choose whether to implement it now.
 2. Pick the closest playbook. Write down what differs.
-3. Design the playbook steps. The one that pins the state before the change comes before the change. Verify on the same surface where that state was observed. The last one is the **Wrap-up**.
-4. Show the designed playbook steps once. If nothing in them is irreversible, proceed without waiting.
+3. Design the playbook steps. Evidence that the surface exists comes first. The one that pins the state before the change comes before the change. Verify on the same surface where that state was observed. The last one is the **Wrap-up**.
+4. Show the designed playbook steps once. If nothing in them is irreversible and nothing needs approval, proceed without waiting.
 5. Run them. There are three verdicts: verified, failed, inconclusive. Inconclusive is not a pass. If it passes too easily, doubt the measurement before the system.
 6. If the output reproduces real behaviour (a widget, a simulation, an example), compare one of its verdict functions with the result of a real run.
 7. Do the **Wrap-up** (`wrap-up.md`). Under Observations in the journal, write "no playbook fitted" and the kind of request.

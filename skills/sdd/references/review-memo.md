@@ -1,13 +1,13 @@
 # Review note format
 
-Review notes are a list of findings. They are not decisions. The user decides what gets fixed.
+Review notes are a list of findings. Note IDs are `S<step>-<n>`, unique across the journal (`journal-format.md`). They are not decisions. The user decides what gets fixed.
 
-| # | Finding | Kind |
+| ID | Finding | Kind |
 |---|---|---|
-| 1 | <One fact. Give numbers and conditions> | verified (by running it) |
-| 2 | <…> | read |
-| 3 | <…> | assumed |
-| 4 | <…> | question |
+| S<step>-1 | <One fact. Give numbers and conditions> | verified (by running it) |
+| S<step>-2 | <…> | read |
+| S<step>-3 | <…> | assumed |
+| S<step>-4 | <…> | question |
 
 ## Kinds
 
@@ -34,6 +34,6 @@ Ask the user how to handle the notes. There are three options.
 
 - **Fix now** → the **Fix** playbook. One note is one step. Turn the reviewer's claim into a test and see it fail before you fix.
 - **Put into the plan** → add it to "What to verify" of a later task.
-- **Leave** → keep it in the table as it is. **Status** finds it again.
+- **Leave** → keep it in the table as it is; record the choice under Decision, not under Closed notes. **Status** finds it again.
 
-A postponed note sometimes comes back in a larger shape at the next layer. When a note is closed, record it as "closed" in the journal of the step that closed it.
+A postponed note sometimes comes back in a larger shape at the next layer. When a note is closed, list its ID under **Closed notes** of the step that closed it, with the evidence. A note whose fix is inconclusive stays open.

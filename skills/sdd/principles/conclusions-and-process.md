@@ -8,7 +8,7 @@ Write only conclusions in the project documents. Write why, in what order, and w
 - When a step ends, write the journal. Write it before the commit.
 - Write a conclusion reached in implementation into the document for that subject (domain, ADR).
 - Propose adding remaining work to "What to verify" of a later plan task.
-- Do not delete discarded ideas and wrong hypotheses. Keep them with a strikethrough or marked "wrong".
+- Do not delete discarded ideas and wrong hypotheses in the journal or brainstorming. In spec, domain and ADR, a changed or removed ID stays as a `REPLACED` or `REMOVED` row (`references/doc-style.md`); use no strikethrough there.
 - Do not edit past journals. They are the record of that time. Leave the hashes of commits that no longer exist as they are.
 
 **Stop:** Do not close a step without writing the journal.
