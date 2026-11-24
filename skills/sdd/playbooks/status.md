@@ -1,13 +1,13 @@
-### 현황
+### Status
 
-**당신은 "지금 어디인가"의 답을 가진다. 읽기만 한다.** 고치지 않는다. 다음 일을 시작하지 않는다.
+**You own the answer to "where are we now". Read only.** Fix nothing. Do not start the next piece of work.
 
-기억으로 답하지 않는다. 저장소와 문서에 묻는다. 화면이 아니고 `git`에 직접 묻는다.
+Do not answer from memory. Ask the repository and the documents. Ask `git` directly, not the screen.
 
-1. plan의 작업의 표, `git log`, `git status`, 원격과의 차이를 읽는다.
-2. 일지에서 "남은 일", "리뷰 메모", "확인이 필요하다", "고치지 않은 것"을 모은다. 뒤의 스텝이 닫은 것은 뺀다.
-3. `scripts/sdd-check.py trace`를 돌린다.
-4. 넷으로 나눈다: plan의 남은 작업 / 커밋하지 않은 변경과 push하지 않은 커밋 / 확인을 기다리는 결정 / 알지만 고치지 않은 것.
-5. **마무리**를 한다 (`wrap-up.md`). 일지에는 질문과 답을 적는다.
+1. Read the plan's task table, `git log`, `git status`, and the difference from the remote.
+2. From the journal, collect "Remaining work", "Review notes", "needs confirmation" and "not fixed". Leave out what a later step closed.
+3. Run `scripts/sdd-check.py trace`.
+4. Sort into four: the remaining plan tasks / uncommitted changes and unpushed commits / decisions waiting for confirmation / things known but not fixed.
+5. Do the **Wrap-up** (`wrap-up.md`). In the journal, record the question and the answer.
 
-**보고:** 네 목록. 항목마다 출처(일지의 스텝이나 파일)를 적는다. 다음 스텝의 후보 하나.
+**Report:** the four lists, each item with its source (a journal step or a file), and one candidate for the next step.

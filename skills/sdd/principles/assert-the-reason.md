@@ -1,15 +1,15 @@
-# 상태가 아니라 이유를 확인한다
+# Assert the reason, not the status
 
-테스트가 맞는 이유로 실패하고 맞는 이유로 통과하는지 본다. 결과의 겉(상태 코드, 종료 코드, "오류가 났다")이 맞아도 이유가 다른 경우가 있다.
+See that a test fails for the right reason and passes for the right reason. The outside of a result (a status code, an exit code, "an error occurred") can be right while the reason is different.
 
-**왜:** 상태만 보는 테스트는 틀린 이유의 같은 상태를 통과시킨다. 서버의 오류가 401로 보이면 "401을 기대한다"는 테스트가 통과한다. 파일이 없어서 난 오류도 "형식이 틀리면 오류가 난다"는 테스트를 통과시킨다.
+**Why:** A test that looks only at the status lets the same status through for a wrong reason. If a server error shows up as 401, a test that "expects 401" passes. An error caused by a missing file also satisfies a test that says "a wrong format raises an error".
 
-**방법:**
-- 테스트가 실패하면 실패의 글을 테스트마다 읽는다. 기대한 실패인가 (단언인가, 컴파일인가, 다른 오류인가).
-- 오류를 확인하는 테스트는 이유를 구분하는 값도 본다 (오류의 종류, 메시지, 본문의 필드).
-- 같아야 하는 결과는 내용까지 같은지 본다. 달라야 하는 결과는 내용이 다른지 본다.
-- 결함을 넣었는데 테스트가 통과하면 그 통과의 이유를 실제 표면에서 확인한다.
+**How:**
+- When tests fail, read the failure message of each one. Is it the failure you expected (an assertion, a compile error, or some other error)?
+- In a test that checks an error, also look at a value that tells the reasons apart (the kind of error, the message, a field of the body).
+- For results that must be equal, check that the content is equal too. For results that must differ, check that the content differs.
+- If you injected a defect and the test still passes, verify the reason for that pass on the real surface.
 
-**멈춤:** "통과했다. 이유는 확인하지 않았다"로 스텝을 닫지 않는다. 확인하거나 리뷰 메모로 남긴다.
+**Stop:** Do not close a step with "it passed; I did not verify why". Verify it or leave a review note.
 
-**쓴 흔적:** 일지에 실패의 이유가 적혀 있다 ("18개가 모두 같은 오류다. 경로가 없다").
+**Evidence:** The journal records the reason for the failures ("all 18 fail with the same error: the path does not exist").

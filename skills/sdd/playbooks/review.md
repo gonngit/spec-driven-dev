@@ -1,15 +1,15 @@
-### 리뷰
+### Review
 
-**당신은 리뷰 메모를 가진다. 결정하지 않는다. 고치지 않는다.**
+**You own the review notes. Do not decide. Do not fix.**
 
-쓴 사람은 판정하는 사람이 아니다. 독자에게 이유를 말하려고 할 때 모르는 것이 드러난다. "이유를 확인하지 않았다"는 리뷰 메모에 쓸 수 없는 문장이다. 확인한다.
+The author is not the judge. What you do not know shows when you try to tell a reader the reason. "I did not verify the reason" is a sentence that cannot go into a review note. Verify it.
 
-1. 대상을 정한다: 커밋의 해시나 작업 트리. 커밋하지 않은 변경이 있으면 어느 것을 설명할지 묻는다. `git show --stat`을 읽는다: 작업에 속하지 않는 파일이 있는가.
-2. 대상이 지금의 작업 트리와 다르면 그 커밋을 스크래치 폴더에 꺼내서 빌드한다 (`git archive`). 프로젝트의 작업 트리는 건드리지 않는다.
-3. 경계의 실험을 한다: 테스트가 생각하지 않은 입력, 규칙이 놓치는 것, 동시에 하는 일, 걸리는 시간. 숫자로 적는다.
-4. `sdd-reviewer` agent에게 독립된 리뷰를 맡긴다. 대상과 문서의 경로만 준다. 내 결론은 주지 않는다.
-5. `review/explain-diff/SKILL.md`를 읽고 따라서 설명 문서를 만든다. 인용한 코드는 스크립트로 커밋과 대조한다. 위젯의 결과는 실제 실행의 결과와 대조한다. 설명 문서는 커밋하지 않는다.
-6. `references/review-memo.md`의 형식으로 리뷰 메모를 쓴다. 메모마다 라벨을 붙인다 (`principles/label-the-claim.md`).
-7. **마무리**를 한다 (`wrap-up.md`). 대상의 뒤에 바뀐 것이 있으면 따로 적는다.
+1. Set the target: a commit hash or the working tree. If there are uncommitted changes, ask which to explain. Read `git show --stat`: are there files that do not belong to the task?
+2. If the target differs from the current working tree, extract that commit into a scratch folder and build it (`git archive`). Do not touch the project's working tree.
+3. Run boundary experiments: inputs the tests did not think of, what the rules miss, things done at the same time, the time taken. Record numbers.
+4. Hand an independent review to the `sdd-reviewer` agent. Give it only the target and the document paths. Do not give it your conclusions.
+5. Read `review/explain-diff/SKILL.md` and follow it to produce the explanation document. Compare the quoted code with the commit by script. Compare widget results with the results of a real run. Do not commit the explanation document.
+6. Write the review notes in the format of `references/review-memo.md`. Label every note (`principles/label-the-claim.md`).
+7. Do the **Wrap-up** (`wrap-up.md`). If anything changed after the target, record it separately.
 
-**보고:** 리뷰 메모의 표, 실험의 표, 대조의 결과(줄의 수, 다른 것의 수), 독립 리뷰가 찾았고 내가 놓친 것, 메모의 처리를 묻는 질문 하나.
+**Report:** the table of review notes, the table of experiments, the result of the comparison (the number of lines, the number that differ), what the independent review found that you missed, one question asking how to handle the notes.

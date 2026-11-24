@@ -1,96 +1,98 @@
 ---
 name: sdd
-description: 문서를 먼저 쓰고(브레인스토밍 → spec → domain → ADR → plan), 테스트를 먼저 쓰고, 스텝마다 일지를 쓰는 개발 방식이다. 한 번에 한 스텝만 한다. 이름으로 부를 때만 쓴다.
+description: Document-first, test-first development. Write the documents first (brainstorming → spec → domain → ADR → plan), write tests before code, write a journal entry for every step, and do one step at a time. Runs only when invoked by name.
 disable-model-invocation: true
 ---
 
 # sdd
 
-playbook, principle, reference, script는 이 파일의 옆에 있다 (이 스킬의 base directory). 파일은 적용하기 전에 끝까지 읽는다. 이 파일에는 색인만 있다.
+The playbooks, principles, references and script sit next to this file (this skill's base directory). Read a file to the end before you apply it. This file is only the index.
 
-프로젝트의 규칙 파일은 하네스마다 다르다. Claude Code에서는 `CLAUDE.md`, omp에서는 `.omp/AGENTS.md`다. 아래에서 `CLAUDE.md`라고 쓴 곳은 지금의 하네스의 그 파일을 뜻한다.
+The project rules file depends on the harness: `CLAUDE.md` in Claude Code, `.omp/AGENTS.md` in omp. Wherever this skill says `CLAUDE.md`, it means that file in the current harness.
 
-## 항상
+A **step** is one request and its journal entry. The numbered items of a playbook are **playbook steps**.
 
-- 작업의 첫 메시지 → 목표, 푸는 문제, 이 스텝이 만들 가장 작은 산출물을 자기 말로 다시 말한다. 확인을 기다리지 않는다. 증거가 요청과 맞지 않으면 증거를 보여 주고 멈춘다.
-- 변경의 전 → 끝의 조건을 통과나 실패가 나오는 문장으로 적는다. "더 좋게"는 조건이 아니다.
-- 요청 하나 → 스텝 하나. 스텝이 끝나면 멈춘다. `principles/user-drives-the-pace.md`.
-- 스텝의 끝 → **마무리**(`playbooks/wrap-up.md`). 일지는 스텝마다 쓴다. 커밋과 push만 한 스텝도 쓴다.
-- "됐다"고 말하기 전 → `principles/see-it-fail.md`와 `principles/real-surface.md`.
-- 문서가 정하지 않은 것을 만났다 → `principles/mark-the-source.md`. 문서를 고쳐야 하는 결정이면 멈추고 승인을 받는다. 아니면 AI가 정하고 일지에 "AI가 정했다"로 적는다.
-- 프로젝트의 규칙(`CLAUDE.md`, ADR)의 MUST가 번거롭다 → `principles/rules-as-written.md`. 규칙을 좁히지 않는다.
-- 문서를 쓰거나 고친다 → `references/doc-style.md`.
-- 커밋 → `git status`를 먼저 읽는다. 경로를 지정해서 올린다. `git add -A`를 쓰지 않는다.
-- 사용자에게 묻기 전 → 분류한다. 실행해서 볼 수 있는 사실은 실행한다. 승인된 결정에서 답이 나오면 묻지 않는다. 사용자만 정할 수 있는 것은 하나씩 묻는다. 선택지와 권장을 준다.
-- 같은 교정을 두 번 받았다 → 일지의 관찰에 적는다. `sdd-reflect` 스킬이 규칙이나 검사로 올린다.
+## Always
 
-## 원칙
+- First message of a task → restate in your own words the goal, the problem being solved, and the smallest thing this step will produce. Do not wait for confirmation. If the evidence does not match the request, show the evidence and stop.
+- Before a change → write the end condition as a sentence that can pass or fail. "Better" is not a condition.
+- One request → one step. Stop when the step ends. `principles/user-drives-the-pace.md`.
+- End of a step → **Wrap-up** (`playbooks/wrap-up.md`). Write the journal for every step, including a step that only commits or pushes.
+- Before saying "done" → `principles/see-it-fail.md` and `principles/real-surface.md`.
+- You meet something the documents do not decide → `principles/mark-the-source.md`. If the decision requires changing a document, stop and get approval. Otherwise decide it and record it in the journal as "decided by the AI".
+- A MUST in the project rules (`CLAUDE.md`, ADRs) is inconvenient → `principles/rules-as-written.md`. Do not narrow the rule.
+- Writing or changing a document → `references/doc-style.md`. Documents are written in the language the user writes in, Korean or English.
+- Committing → read `git status` first. Stage files by path. Do not use `git add -A`.
+- Before asking the user → sort the questions. Run what can be learned by running it. Do not ask what an approved decision already answers. Ask what only the user can decide one question at a time, with options and a recommendation.
+- You received the same correction twice → write it under Observations in the journal. The `sdd-reflect` skill turns it into a rule or a check.
 
-원칙을 적용하기 전에 `principles/<이름>.md`를 끝까지 읽는다. 이번 세션에서 읽은 원칙만 인용한다. 보고에는 원칙이 바꾼 결정을 적는다.
+## Principles
 
-- **사용자가 속도를 정한다** (`principles/user-drives-the-pace.md`). 스텝이 끝났을 때, 다음 일이 보일 때. 요청한 스텝만 하고 멈춘다.
-- **스텝의 범위만 한다** (`principles/scope-of-the-step.md`). "이것도 지금 하면 좋다"는 생각이 들 때. plan의 작업과 테스트가 요구하는 것만 만든다.
-- **실패를 본 검사만 믿는다** (`principles/see-it-fail.md`). 테스트가 처음부터 통과할 때, "없어야 한다"의 규칙을 검사할 때. 결함을 넣어서 빨강을 본다.
-- **실제 표면에서 본다** (`principles/real-surface.md`). 테스트가 모두 통과한 뒤, 끝났다고 말하기 전. 실제로 쓰는 방식 그대로 실행해 본다.
-- **상태가 아니라 이유를 확인한다** (`principles/assert-the-reason.md`). 테스트가 실패할 때, 테스트가 오류를 확인할 때. 맞는 이유로 실패하고 맞는 이유로 통과하는지 본다.
-- **주장에 라벨을 붙인다** (`principles/label-the-claim.md`). 일지, 리뷰 메모, 보고에 사실을 적을 때. 확인, 추정, 읽음, 질문을 구분한다.
-- **결정의 출처를 남긴다** (`principles/mark-the-source.md`). AI가 결정했을 때, 승인된 문서를 고칠 때. 누가 제안했고 누가 승인했는지 적는다.
-- **규칙을 쓰인 대로 지킨다** (`principles/rules-as-written.md`). MUST를 지키지 못했거나 건너뛰고 싶을 때. 규칙을 고치지 않고 기록을 규칙에 맞춘다.
-- **ID로 잇는다** (`principles/trace-by-id.md`). 수용 기준, 규칙, 테스트를 쓰거나 고칠 때. spec → domain → plan → 테스트를 ID로 잇는다.
-- **결론은 문서에, 과정은 일지에** (`principles/conclusions-and-process.md`). 무엇을 어디에 쓸지 정할 때. 남은 일은 plan에 넣는다.
-- **규칙을 검사로 옮긴다** (`principles/encode-in-checks.md`). 사람이 조심해서 지키는 규칙을 찾았을 때. 테스트나 스크립트가 강제하게 한다.
-- **원인을 고친다** (`principles/fix-the-cause.md`). 결함을 고칠 때. 증상의 하나가 아니고 원인을 고친다.
+Read `principles/<name>.md` to the end before you apply a principle. Cite only principles you read in this session. In the report, state the decision the principle changed.
 
-## 자율성
+- **The user sets the pace** (`principles/user-drives-the-pace.md`). When a step ends, when the next task is in sight. Do only the requested step and stop.
+- **Do only the scope of the step** (`principles/scope-of-the-step.md`). When you think "it would be good to do this now too". Build only what the plan task and the tests require.
+- **Trust only a check you have seen fail** (`principles/see-it-fail.md`). When a test passes from the start, when you check a "must not exist" rule. Inject a defect and see red.
+- **Look at the real surface** (`principles/real-surface.md`). After all tests pass, before saying it is done. Run it the way it is really used.
+- **Assert the reason, not the status** (`principles/assert-the-reason.md`). When a test fails, when a test checks an error. See that it fails for the right reason and passes for the right reason.
+- **Label the claim** (`principles/label-the-claim.md`). When you write a fact in the journal, a review note or a report. Tell verified, assumed, read and question apart.
+- **Mark the source of a decision** (`principles/mark-the-source.md`). When the AI decided, when an approved document changes. Record who proposed and who approved.
+- **Follow the rules as written** (`principles/rules-as-written.md`). When you did not follow a MUST or want to skip one. Do not change the rule; bring the record in line with the rule.
+- **Trace by ID** (`principles/trace-by-id.md`). When you write or change acceptance criteria, rules or tests. Link spec → domain → plan → tests by ID.
+- **Conclusions in documents, process in the journal** (`principles/conclusions-and-process.md`). When deciding what to write where. Put remaining work into the plan.
+- **Encode rules in checks** (`principles/encode-in-checks.md`). When you find a rule that people keep by being careful. Make a test or a script enforce it.
+- **Fix the cause** (`principles/fix-the-cause.md`). When fixing a defect. Fix the cause, not one of its symptoms.
 
-- **스텝의 안에서는 묻지 않고 진행한다.** 되돌릴 수 있는 일이다: 읽기, 테스트와 빌드의 실행, 실제로 실행해 보기 (서버면 다른 포트에 띄운다), 스크래치 폴더에 꺼내서 빌드하기, 결함을 임시로 넣고 되돌리기.
-- **스텝의 사이에서는 멈춘다.** plan의 다음 작업, 리뷰 메모의 수정, 커밋은 사용자의 요청이 있을 때 시작한다.
-- **항상 멈추고 묻는다.** push. push한 커밋의 역사를 바꾸는 일. 내가 만들지 않은 파일의 삭제와 커밋. 승인된 문서의 뜻을 바꾸는 일. 문서를 고쳐야 하는 결정 (`principles/mark-the-source.md`). 프로젝트의 규칙을 바꾸는 일. 밖으로 정보를 보내는 일.
-- **승인을 받은 결정은 문서에 적는다.** 상태의 줄에 "수정 (날짜): 무엇을"을 더한다. 승인을 받지 않은 것을 승인된 문서에 더하지 않는다.
-- **반대해도 된다.** 근거가 있으면 다른 권장을 말한다. 사용자가 권장과 다르게 고르면 그대로 하고, 그 사실과 결과를 일지에 적는다.
+## Autonomy
 
-## 위임
+- **Inside a step, proceed without asking.** These can be undone: reading, running tests and builds, running it for real (a server on another port), extracting a copy into a scratch folder and building it, injecting a defect temporarily and restoring it.
+- **Between steps, stop.** Start the next plan task, the fix for a review note, or a commit only when the user asks.
+- **Always stop and ask.** Pushing. Changing the history of pushed commits. Deleting or committing files you did not create. Changing the meaning of an approved document. A decision that requires changing a document (`principles/mark-the-source.md`). Changing the project rules. Sending information outside.
+- **Write approved decisions into the documents.** Add "Revised (date): what" to the status line. Do not add anything unapproved to an approved document.
+- **You may disagree.** If you have grounds, give a different recommendation. If the user chooses against your recommendation, do it their way and record that fact and its result in the journal.
 
-- 주 대화가 playbook과 todo를 가진다. subagent에게 playbook의 실행을 맡기지 않는다.
-- subagent의 brief마다 사용자의 목표를 다시 쓴다. subagent의 보고는 증거가 아니다. diff와 출력을 직접 읽는다.
-- 리뷰는 쓴 사람이 아닌 agent가 한다: `sdd-reviewer`. 내 결론을 주지 않는다. 대상과 문서의 경로만 준다.
+## Delegation
 
-## 보고
+- The main conversation owns the playbook and the todo list. Do not hand the execution of a playbook to a subagent.
+- Restate the user's goal in every subagent brief. A subagent's report is not evidence. Read the diff and the output yourself.
+- Review is done by an agent that did not write the change: `sdd-reviewer`. Do not give it your conclusions. Give it only the target and the document paths.
 
-- 목표를 다시 말하는 문장으로 시작한다.
-- 주장마다 같은 문장에 증거나 라벨이 있다. 실행하지 못한 검증은 "미확정"이다. 통과가 아니다.
-- 내가 실행할 수 있는 확인을 사용자에게 넘기지 않는다.
-- 형식은 `references/report-template.md`다. playbook의 `**보고:**` 줄이 그 유형의 항목을 정한다.
-- 끝에 다음 스텝의 후보를 한 줄로 말한다. 시작하지 않는다.
+## Reporting
 
-## Playbook
+- Start with a sentence that restates the goal.
+- Every claim has its evidence or a label in the same sentence. A verification you could not run is "inconclusive". It is not a pass.
+- Do not hand the user a verification that you can run yourself.
+- The format is `references/report-template.md`. A playbook's `**Report:**` line sets the items for that kind of report.
+- End with one line naming the candidate for the next step. Do not start it.
 
-요청에 맞는 playbook 하나를 고른다. `playbooks/<이름>.md`를 연다. 그 단계를 todo에 그대로 옮긴 뒤에 작업의 세부 todo를 더한다. 하지 않는 단계는 `skip: <이유>`로 남긴다. 맞는 것이 없으면 `playbooks/figure-it-out.md`다.
+## Playbooks
 
-- **킥오프** (`playbooks/kickoff.md`). 새 프로젝트나 새 슬라이스의 브레인스토밍. 사용자의 말과 입력 자료에서 주제를 뽑고 하나씩 논의해서 닫는다. 코드는 쓰지 않는다. ("킥오프", "브레인스토밍", "의도를 뽑아")
-- **설계 문서** (`playbooks/design-docs.md`). 슬라이스의 spec, domain, ADR, plan을 쓰거나 다시 쓴다. 킥오프와 다르다: 결정을 문서로 고정한다. ("spec을 쓴다", "ADR", "plan을 만든다")
-- **plan의 작업** (`playbooks/plan-task.md`). plan의 작업 하나를 테스트 먼저로 구현한다. ("작업 3을 한다", "다음 작업 진행")
-- **리뷰** (`playbooks/review.md`). 커밋이나 작업 트리의 변경을 설명하고 리뷰 메모를 쓴다. 고치지 않는다. ("설명 문서", "/explain-diff", "리뷰")
-- **수정** (`playbooks/fix.md`). 리뷰 메모 하나나 결함 하나를 고친다. plan의 작업과 다르다: 새 기능이 아니다. ("메모 1을 고친다", "이 결함을 고친다", "빈틈을 닫는다")
-- **대조** (`playbooks/conformance.md`). 문서의 MUST를 하나씩 코드와 테스트에 대조한다. 리뷰와 다르다: 대상이 커밋이 아니고 문서 전체다. ("문서를 기준으로 코드를 검증", "모든 AC에 테스트가 있는가")
-- **결정의 확인** (`playbooks/decisions.md`). AI가 정했고 사용자가 확인하지 않은 결정을 모아서 승인을 받는다. ("제안을 승인", "확인이 필요한 것")
-- **현황** (`playbooks/status.md`). 읽기만 한다. 남은 일을 네 목록으로 답한다. ("남은 작업은", "어디까지 했나")
-- **마무리** (`playbooks/wrap-up.md`). 모든 playbook의 끝에서 한다. 일지, 보고, 요청이 있을 때의 커밋. ("커밋")
-- **직접 설계** (`playbooks/figure-it-out.md`). 맞는 playbook이 없을 때. 단계를 설계한 뒤에 실행한다.
+Pick the one playbook that fits the request. Open `playbooks/<name>.md`. Copy its playbook steps into the todo list as they are, then add the detailed todos of the task. Leave a playbook step you do not do as `skip: <reason>`. If none fits, use `playbooks/figure-it-out.md`.
 
-## 검사 스크립트
+- **Kickoff** (`playbooks/kickoff.md`). Brainstorming for a new project or a new slice. Draw the topics out of what the user says and the input material, discuss them one at a time, and close them. Write no code. ("kickoff", "brainstorming", "draw out the intent")
+- **Design docs** (`playbooks/design-docs.md`). Write or rewrite a slice's spec, domain, ADRs and plan. Unlike kickoff, it fixes decisions in documents. ("write the spec", "ADR", "make the plan")
+- **Plan task** (`playbooks/plan-task.md`). Implement one task of the plan, test first. ("do task 3", "go on with the next task")
+- **Review** (`playbooks/review.md`). Explain the change in a commit or in the working tree and write review notes. Fix nothing. ("explanation document", "review")
+- **Fix** (`playbooks/fix.md`). Fix one review note or one defect. Unlike a plan task, it is not a new feature. ("fix note 1", "fix this defect", "close the gap")
+- **Conformance** (`playbooks/conformance.md`). Check every MUST in the documents against the code and the tests. Unlike review, the target is the whole set of documents, not a commit. ("verify the code against the documents", "does every AC have a test")
+- **Confirm decisions** (`playbooks/decisions.md`). Collect the decisions the AI made that the user has not confirmed, and get approval. ("approve the proposals", "what needs confirmation")
+- **Status** (`playbooks/status.md`). Read only. Answer with the remaining work in four lists. ("what is left", "where are we")
+- **Wrap-up** (`playbooks/wrap-up.md`). Do it at the end of every playbook. Journal, report, and a commit when asked. ("commit")
+- **Figure it out** (`playbooks/figure-it-out.md`). When no playbook fits. Design the playbook steps, then run them.
 
-`scripts/sdd-check.py`는 글로 쓴 규칙을 검사로 바꾼 것이다. playbook이 부른다. 통과시키려고 스크립트, ID, 끝의 조건을 바꾸지 않는다.
+## Check script
 
-- `trace`: spec과 domain의 ID가 plan과 테스트의 이름에 모두 있는가.
-- `keywords`: 문서의 RFC 2119 키워드가 규칙대로 쓰였는가.
-- `journal`: 오늘의 일지가 이 변경과 함께 바뀌었는가.
-- `self`: 이 스킬의 색인과 파일이 맞는가.
+`scripts/sdd-check.py` turns written rules into checks. The playbooks call it. Do not change the script, the IDs or the end conditions to make it pass.
 
-## 설명 문서의 스킬
+- `trace`: is every ID in the spec and the domain present in the plan and in the test names?
+- `keywords`: are the RFC 2119 keywords in the documents used by the rules?
+- `journal`: did today's journal change together with this change?
+- `self`: do this skill's index and files agree?
 
-`review/`에 설명 문서를 만드는 스킬 셋이 있다. 스킬의 목록에서 찾지 않는다. playbook이 가리킬 때 그 `SKILL.md`를 읽고 따른다. 그 안의 경로는 그 파일의 폴더가 기준이다. 설명 문서는 사람이 읽는 것이다. 커밋하지 않는다.
+## Explanation skills
 
-- `review/explain-full-map/SKILL.md`: 저장소 전체의 지도. 킥오프가 쓴다.
-- `review/explain-full-flow/SKILL.md`: 기능 하나의 흐름. 킥오프가 쓴다.
-- `review/explain-diff/SKILL.md`: 커밋 하나의 설명. 리뷰가 쓴다.
+`review/` holds three skills that produce explanation documents. Do not look for them in the skill list. When a playbook points at one, read its `SKILL.md` and follow it. Paths inside it are relative to that file's folder. An explanation document is for a person to read. Do not commit it.
+
+- `review/explain-full-map/SKILL.md`: a map of the whole repository. Used by kickoff.
+- `review/explain-full-flow/SKILL.md`: the flow of one feature. Used by kickoff.
+- `review/explain-diff/SKILL.md`: the explanation of one commit. Used by review.

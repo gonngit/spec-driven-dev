@@ -1,16 +1,16 @@
-# 실제 표면에서 본다
+# Look at the real surface
 
-테스트가 모두 통과한 뒤에 실제로 쓰는 방식 그대로 실행해 본다. 증상을 본 표면과 같은 표면에서 수정을 확인한다.
+After all tests pass, run it the way it is really used. Verify a fix on the same surface where you saw the symptom.
 
-**왜:** 테스트는 생각한 경우만 본다. 실제의 결과에는 생각하지 않은 것이 있다: 순서, 형식, 기본값, 프레임워크나 라이브러리가 더한 동작.
+**Why:** Tests see only the cases someone thought of. Real results hold things nobody thought of: order, format, defaults, behaviour added by a framework or a library.
 
-**방법:**
-- 실제로 쓰는 방식 그대로 실행한다. 서버면 띄워서 요청을 보낸다. 스크립트나 명령줄 도구면 진짜 입력으로 돌린다. 화면이면 열어서 눌러 본다. 포트가 쓰이고 있으면 다른 포트를 쓴다. 설정은 바꾸지 않는다.
-- 테스트에 없는 입력을 넣는다: 보이지 않는 글자, 틀린 타입, 긴 값, 빈 입력, 같은 일을 동시에.
-- 추정을 숫자로 바꾼다. "드물다"를 쓰지 않고 "12개 중 9개"를 쓴다. 시간은 잰다.
-- 지난 커밋의 동작은 그 커밋을 스크래치 폴더에 꺼내서 빌드한다. 작업 트리는 건드리지 않는다.
-- 다른 것이 실제 동작을 옮겼으면 (위젯, 문서의 예) 실제의 결과와 대조한다.
+**How:**
+- Run it the way it is really used. A server: start it and send requests. A script or a command-line tool: run it on real input. A screen: open it and click through it. If the port is in use, use another port. Do not change the configuration.
+- Feed it inputs the tests do not have: invisible characters, wrong types, long values, empty input, the same thing done at the same time.
+- Turn assumptions into numbers. Do not write "rare"; write "9 out of 12". Measure time.
+- For the behaviour of an earlier commit, extract that commit into a scratch folder and build it. Do not touch the working tree.
+- If something else reproduces the real behaviour (a widget, an example in a document), compare it with the real result.
 
-**멈춤:** 빌드의 성공과 테스트의 통과만으로 "됐다"고 말하지 않는다.
+**Stop:** Do not say "done" on a successful build and passing tests alone.
 
-**쓴 흔적:** 일지에 실제의 결과의 표가 있다 (경우, 넣은 것, 나온 것).
+**Evidence:** The journal has a table of real results (case, input, output).

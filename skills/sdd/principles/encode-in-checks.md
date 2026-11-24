@@ -1,16 +1,16 @@
-# 규칙을 검사로 옮긴다
+# Encode rules in checks
 
-사람이 조심해서 지키는 규칙을 찾으면 테스트나 스크립트가 강제하게 한다. 글은 가장 약한 강제다.
+When you find a rule that people keep by being careful, make a test or a script enforce it. Prose is the weakest enforcement.
 
-**왜:** 평서문의 규칙은 어겨도 눈에 띄지 않는다. "지금은 지킨다"의 이유가 조심이면 다음 작업에서 깨진다. 실패하는 검사는 다음 작업의 선택지를 줄인다.
+**Why:** Breaking a rule written as a plain statement goes unnoticed. If the reason "it complies today" is care, it breaks in the next task. A failing check narrows the options of the next task.
 
-**방법:**
-- 강제의 사다리를 위에서부터 쓴다: (1) 구조가 실수를 못 하게 한다 → (2) 타입, 구조를 검사하는 테스트, 스크립트 → (3) 테스트 → (4) 문서의 문장.
-- 문서의 요구는 MUST로 쓴다. MUST는 어긴 것을 결함으로 만든다.
-- 검사의 이름과 실패의 글에 규칙의 출처를 넣는다 ("ADR-0002 규칙 3: …").
-- 검사가 문장과 정확히 맞지 않으면 넣지 않는다.
-- 같은 교정이 두 번 나오면 검사로 올린다. 한 번 나온 것은 올리지 않는다.
+**How:**
+- Use the ladder of enforcement from the top: (1) the structure makes the mistake impossible → (2) types, tests that check the structure, scripts → (3) tests → (4) a sentence in a document.
+- Write document requirements as MUST. A MUST turns a violation into a defect.
+- Put the source of the rule in the check's name and failure message ("ADR-0002 rule 3: …").
+- If a check does not match the sentence exactly, do not add it.
+- When the same correction comes twice, promote it to a check. Do not promote something that came once.
 
-**멈춤:** 이 원칙을 인용했는데 diff에 새 검사가 없으면 적용한 것이 아니다.
+**Stop:** If you cited this principle and the diff has no new check, you did not apply it.
 
-**쓴 흔적:** diff에 테스트나 스크립트가 있다. 그 검사가 실패하는 것을 본 기록이 있다.
+**Evidence:** The diff contains a test or a script. There is a record of seeing that check fail.

@@ -1,17 +1,17 @@
-# 실패를 본 검사만 믿는다
+# Trust only a check you have seen fail
 
-실패하는 것을 본 적이 없는 검사는 아무것도 증명하지 않는다. 결함을 넣어서 빨강을 본다.
+A check you have never seen fail proves nothing. Inject a defect and see red.
 
-**왜:** 검사할 대상이 없으면 테스트는 처음부터 초록이다. "없어야 한다"의 규칙과 구현의 뒤에 쓴 테스트도 처음부터 초록이다. 이 초록은 검사가 동작한다는 증거가 아니다.
+**Why:** When there is nothing to check, a test is green from the start. A "must not exist" rule and a test written after the implementation are also green from the start. That green is not evidence that the check works.
 
-**방법:**
-- 테스트를 먼저 쓰고 실패를 본다. 컴파일의 실패는 "코드가 없다"만 말한다. 빈 껍데기를 넣고 단언의 실패를 본다.
-- 처음부터 초록인 검사에는 위반을 임시로 넣는다. 그 검사만 실패하는지 본다. 되돌린다.
-- 대조군을 넣는다. 허용된 경우를 검사가 잡지 않는지 본다.
-- 작업의 끝에 결함을 하나씩 넣고 전체 테스트를 돌린다. 잡은 테스트를 표로 적는다.
-- 결함을 넣기 전에 파일을 복사해 둔다. 그 복사본으로 되돌린다. git으로 되돌리지 않는다 (`git checkout`, `git restore`, `git stash`). 커밋하지 않은 작업이 함께 지워진다.
-- 검사가 놓친 결함은 리뷰 메모다. 이유를 확인한다.
+**How:**
+- Write the test first and see it fail. A compile failure says only "the code does not exist". Put in an empty shell and see the assertion fail.
+- For a check that is green from the start, put in a violation temporarily. See that only that check fails. Restore.
+- Add a control. See that the check does not flag an allowed case.
+- At the end of the task, inject defects one at a time and run the whole test suite. Record in a table which test caught each.
+- Copy the file before you inject a defect, and restore from that copy. Do not restore through git (`git checkout`, `git restore`, `git stash`): uncommitted work is erased along with the defect.
+- A defect the checks missed is a review note. Find out why.
 
-**멈춤:** 빨강을 보지 못한 검사를 "검증했다"의 근거로 쓰지 않는다. 통과시키려고 검사를 고치지 않는다.
+**Stop:** Do not use a check you have not seen red as grounds for "verified". Do not change a check to make it pass.
 
-**쓴 흔적:** 일지에 "넣은 결함 → 잡은 테스트"의 표가 있다. `git diff`에 넣었던 결함이 남아 있지 않다.
+**Evidence:** The journal has a table "defect injected → test that caught it". `git diff` shows none of the injected defects left behind.

@@ -1,31 +1,30 @@
-# 프로젝트의 규칙 (새 프로젝트의 `CLAUDE.md`에 넣는 것)
+# Project rules (what goes into a new project's `CLAUDE.md`)
 
-킥오프에서 사용자에게 보여 주고, 승인을 받은 것만 넣는다. 사용자가 요청하지 않은 규칙을 더하지 않는다.
+Show this to the user at kickoff and put in only what is approved. Do not add rules the user did not ask for. Write the block in the language of the project's documents.
 
 ```markdown
-## 진행
+## Process
 
-- 작업은 작은 스텝으로 한다. 한 번에 한 스텝만 하고, 사용자와 확인한 뒤에 다음으로 간다.
-- 개발의 흐름: 입력 자료 → 의도 추출(브레인스토밍) → spec → domain → ADR → plan → 구현.
-- 구현은 plan의 작업의 단위로 한다. 테스트를 먼저 쓴다.
+- Work in small steps. Do one step at a time and move on only after confirming with the user.
+- Flow of development: input material → drawing out the intent (brainstorming) → spec → domain → ADR → plan → implementation.
+- Implement by plan task. Write the tests first.
 
-## 작업 일지
+## Work journal
 
-- 스텝이 끝날 때마다 `docs/journal/YYYY-MM-DD.md`에 **반드시 기록해야 한다.** (MUST)
-- 스텝마다 쓰는 항목: 요청 또는 질문, 한 일, 검증. 그 밖의 항목(답, 결정, 버린 대안, 관찰)은 내용이 있을 때만 쓴다.
-- 프로젝트 문서에는 결론만 쓴다. 과정은 일지에 쓴다.
+- At the end of every step, the step **MUST** be recorded in `docs/journal/YYYY-MM-DD.md`.
+- Items written for every step: request or question, what was done, verification. Write the other items (answer, decision, rejected alternatives, observations) only when they have content.
+- Project documents hold only conclusions. The process goes into the journal.
 
-## 문서
+## Documents
 
-- 문서의 언어: <언어>. 코드 식별자, 경로, 기술 용어는 원문을 쓸 수 있다. (MAY)
-- 요구의 수준은 RFC 2119의 키워드로 쓴다.
+- Document language: <Korean or English, the language the user writes in>. Code identifiers, paths and technical terms **MAY** stay in their original form.
+- Requirement levels are written with RFC 2119 keywords.
 ```
 
-## 사용자에게 묻는 것
+## What to ask the user
 
-| 질문 | 왜 먼저 묻는가 |
+| Question | Why it is asked first |
 |---|---|
-| 프로젝트의 목적은 무엇인가 | 답이 산출물의 종류와 완성도를 정한다. |
-| 과정을 어디에 기록하는가 | 일지의 위치와 형식을 정한다. |
-| 어디까지 구현하는가 | 슬라이스의 수를 정한다. |
-| 문서와 대화의 언어는 무엇인가 | 전역의 지침과 다르게 해석하는 경우가 있다. |
+| What is the purpose of the project? | The answer sets the kind of output and how finished it has to be. |
+| Where is the process recorded? | It sets the location and the format of the journal. |
+| How far is it implemented? | It sets the number of slices. |

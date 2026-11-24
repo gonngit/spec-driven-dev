@@ -1,16 +1,16 @@
-# 원인을 고친다
+# Fix the cause
 
-증상의 하나를 고치지 않는다. 원인을 찾아서 원인을 고친다.
+Do not fix one of the symptoms. Find the cause and fix the cause.
 
-**왜:** 증상을 막으면 같은 원인이 다른 곳에서 나온다. 가장 짧은 수정은 층의 경계를 깨는 경우가 많다.
+**Why:** Blocking a symptom lets the same cause come out somewhere else. The shortest fix often breaks a boundary between layers.
 
-**방법:**
-- 고치기 전에 넓게 본다: 같은 증상이 다른 입력과 다른 경로에도 있는가.
-- 원인의 문장을 쓴다. 그 문장이 본 증상을 모두 설명하는지 확인한다. 설명하지 못하면 원인이 아니다.
-- 수정이 구조의 규칙(ADR)을 지키는 곳에 있는지 본다. 부품의 경계가 변경의 범위를 정한다.
-- 결함의 뿌리가 문서에 있으면 (정의가 없는 말, 상한이 없는 값) 문서의 결정을 먼저 받는다.
-- 다른 방법을 "버린 대안"에 적는다. 왜 더 짧은 방법을 고르지 않았는지 적는다.
+**How:**
+- Look wide before fixing: does the same symptom appear with other inputs and on other paths?
+- Write the cause as a sentence. Verify that the sentence explains every symptom you saw. If it does not, it is not the cause.
+- See that the fix sits in a place that keeps the structure rules (ADRs). The boundaries between parts set the scope of the change.
+- If the root of the defect is in a document (a word without a definition, a value without an upper limit), get the document decision first.
+- Write the other approaches under "Rejected alternatives". Say why you did not choose the shorter one.
 
-**멈춤:** 고장을 다른 모양으로 감추는 수정을 넣지 않는다 (모든 예외를 잡는다, 경로 전체를 연다).
+**Stop:** Do not add a fix that hides the failure in another shape (catching every exception, opening the whole path).
 
-**쓴 흔적:** 보고에 원인의 문장, 전과 후의 표, 버린 대안이 있다.
+**Evidence:** The report contains the cause sentence, the before-and-after table and the rejected alternatives.

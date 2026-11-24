@@ -1,16 +1,16 @@
-### 킥오프
+### Kickoff
 
-**당신은 의도의 지도를 가진다. 결정은 사용자가 한다.** 코드는 쓰지 않는다. 사실과 추측을 섞지 않는다.
+**You own the map of the intent. The user decides.** Write no code. Do not mix facts and guesses.
 
-설계 문서를 쓰라는 요청은 **설계 문서**로 보낸다. 여기서는 주제를 닫는 데까지만 한다.
+Send a request to write design documents to **Design docs**. Here, go only as far as closing the topics.
 
-1. 사용자의 말을 먼저 듣는다. 순서가 없어도 된다. 아직 말하지 않았으면 생각나는 대로 말해 달라고 한다. 입력 자료가 있으면 읽는다 (참고 자료, 예시 파일, 기존 코드). 자료의 위치를 URL과 커밋 번호로 적는다. 컴퓨터의 경로로 적지 않는다.
-2. 기존 코드에 이어서 하는 일이면 먼저 지도를 만든다. `review/explain-full-map/SKILL.md`를 읽고 따른다. 지도를 보고 새 일이 닿는 흐름을 고른다. 여럿일 수 있다. 고른 흐름과 이유를 말하고, 흐름마다 `review/explain-full-flow/SKILL.md`를 읽고 따른다. 같은 커밋에서 만든 설명 문서가 있으면 다시 만들지 않는다. 이 문서들이 입력 자료다.
-3. 프로젝트의 규칙이 없으면 `references/project-rules.md`를 보여 주고 `CLAUDE.md`(omp에서는 `.omp/AGENTS.md`)에 넣을지 묻는다. `docs/journal/`이 없으면 만든다.
-4. `docs/brainstorming/NN-<이름>.md`를 쓰고 보여 준다. 절은 셋이다: 정해진 것, 정할 주제의 목록, AI의 추측. 추측에는 "검증하지 않은 추측"이라고 적는다. 사용자가 말하지 않은 주제(목적, 범위, 쓰는 사람)를 목록에 더한다.
-5. 주제를 하나씩 논의한다. 프로젝트의 목적이 먼저다. 주제마다 선택지와 권장을 준다. 한 번에 한 주제만 묻는다.
-6. 정해지면 결정의 절에 적고 다음 주제로 간다. 버린 선택지는 취소선으로 남긴다. 지우지 않는다.
-7. 문서를 처음부터 다시 읽는다. 앞의 결정이 뒤의 결정과 맞는가. 결정의 문장 안에 새 주제가 숨어 있는가. 추측에 반례가 있는가.
-8. **마무리**를 한다 (`wrap-up.md`).
+1. Listen to the user first. It does not need an order. If the user has not said anything yet, ask them to say what comes to mind. Read the input material if there is any (references, example files, existing code). Record where the material is by URL and commit number, not by a path on this computer.
+2. When the work continues on existing code, make a map first. Read `review/explain-full-map/SKILL.md` and follow it. From the map, pick the flows the new work touches. There may be several. Say which flows and why, then read `review/explain-full-flow/SKILL.md` and follow it for each flow. Do not regenerate an explanation document that was made at the same commit. These documents are input material.
+3. If the project has no rules, show `references/project-rules.md` and ask whether to put it into `CLAUDE.md` (`.omp/AGENTS.md` in omp). Create `docs/journal/` if it is missing.
+4. Write `docs/brainstorming/NN-<name>.md` and show it. It has three sections: what is settled, the list of topics to settle, and the AI's guesses. Mark each guess "unverified guess". Add the topics the user did not mention (purpose, scope, who uses it) to the list.
+5. Discuss the topics one at a time. The purpose of the project comes first. Give options and a recommendation for each topic. Ask about one topic at a time.
+6. When a topic is settled, write it in the decisions section and move to the next topic. Keep rejected options with a strikethrough. Do not delete them.
+7. Reread the document from the top. Do the earlier decisions agree with the later ones? Does a decision sentence hide a new topic? Does a guess have a counterexample?
+8. Do the **Wrap-up** (`wrap-up.md`).
 
-**보고:** 정한 주제와 결정, 남은 주제, 버린 선택지와 이유, 반례가 있는 추측, 내가 당연하다고 가정한 것.
+**Report:** the topics settled and their decisions, the topics left, the rejected options and why, the guesses that have a counterexample, what you took for granted.

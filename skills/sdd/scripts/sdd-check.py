@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""sdd의 검사. 글로 쓴 규칙을 실행할 수 있는 검사로 바꾼 것이다.
+"""Checks for sdd. Written rules turned into checks that can be run.
 
-  trace     spec과 domain의 ID가 plan과 테스트의 이름에 모두 있는가
-  keywords  문서의 RFC 2119 키워드가 규칙대로 쓰였는가
-  journal   오늘의 일지가 이 변경과 함께 바뀌었는가
-  self      sdd의 색인과 파일이 맞는가
+  trace     is every ID in the spec and the domain present in the plan and in the test names
+  keywords  are the RFC 2119 keywords in the documents used by the rules
+  journal   did today's journal change together with this change
+  self      do sdd's index and files agree
 
-끝의 코드: 0은 통과, 1은 실패, 2는 검사할 수 없음(미확정).
-표준 라이브러리만 쓴다.
+Exit code: 0 pass, 1 fail, 2 could not be checked (inconclusive).
+Standard library only. Project documents may be Korean or English.
 """
 import argparse
 import datetime
@@ -30,17 +30,17 @@ def read(path):
 
 def report(name, problems, summary):
     if problems:
-        print(f"실패: {name}")
+        print(f"FAIL: {name}")
         for p in problems:
             print(f"  - {p}")
         print(f"  ({summary})")
         return FAIL
-    print(f"통과: {name} ({summary})")
+    print(f"PASS: {name} ({summary})")
     return PASS
 
 
 def inconclusive(name, why):
-    print(f"미확정: {name}. {why}")
+    print(f"INCONCLUSIVE: {name}. {why}")
     return INCONCLUSIVE
 
 
@@ -85,27 +85,27 @@ def cmd_trace(args):
     rules, dup_r = defined_ids(docs / "domain", R_ROW)
     ids = acs + rules
     if not ids:
-        return inconclusive("trace", f"{docs}/spec과 {docs}/domain의 표에 ID가 없다")
-    problems = [f"ID가 두 번 정의됐다: {d}" for d in dup_ac + dup_r]
+        return inconclusive("trace", f"no IDs in the tables of {docs}/spec and {docs}/domain")
+    problems = [f"ID defined twice: {d}" for d in dup_ac + dup_r]
 
     plans = sorted((docs / "plan").glob("*.md"))
     if plans:
         planned = set()
         for p in plans:
             planned |= ids_in_text(read(p))
-        problems += [f"plan에 없다: {i}" for i in ids if i not in planned]
+        problems += [f"not in the plan: {i}" for i in ids if i not in planned]
         known = set(ids)
-        problems += [f"plan이 없는 ID를 가리킨다: {i}" for i in sorted(planned - known)]
+        problems += [f"the plan points at an ID that does not exist: {i}" for i in sorted(planned - known)]
     else:
-        problems.append(f"{docs}/plan에 문서가 없다")
+        problems.append(f"no documents in {docs}/plan")
 
-    tested = "보지 않았다 (--no-tests)"
+    tested = "not looked at (--no-tests)"
     if not args.no_tests:
-        # shortcut: 흔한 이름의 폴더만 찾는다, 테스트가 코드의 옆에 있는 프로젝트는 --tests로 준다.
+        # shortcut: only common folder names are tried, pass --tests when tests sit beside the code.
         names = [args.tests] if args.tests else TEST_DIRS
         tests = next((Path(n) for n in names if Path(n).is_dir()), None)
         if tests is None:
-            return inconclusive("trace", f"테스트의 폴더가 없다: {', '.join(names)}. 문서만 보려면 --no-tests")
+            return inconclusive("trace", f"no test folder: {', '.join(names)}. Use --no-tests to check documents only")
         blob = "\n".join(
             read(f).lower() for f in tests.rglob("*")
             if f.is_file() and f.suffix in TEXT_SUFFIXES
@@ -114,17 +114,18 @@ def cmd_trace(args):
             i for i in ids
             if not re.search(r"(?<![a-z0-9])" + re.escape(test_token(i)), blob)
         ]
-        problems += [f"이름에 `{test_token(i)}`가 있는 테스트가 없다: {i}" for i in missing]
-        tested = f"테스트가 있는 ID {len(ids) - len(missing)}/{len(ids)}"
-    return report("trace", problems, f"수용 기준 {len(acs)}개, 규칙 {len(rules)}개, {tested}")
+        problems += [f"no test with `{test_token(i)}` in its name: {i}" for i in missing]
+        tested = f"IDs with a test {len(ids) - len(missing)}/{len(ids)}"
+    return report("trace", problems, f"{len(acs)} acceptance criteria, {len(rules)} rules, {tested}")
 
 
 # ------------------------------------------------------------- keywords
 
 BOLD = re.compile(r"\*\*[^*]+\*\*")
 LEVEL_ROW = re.compile(r"^\|\s*([A-Za-z0-9.\-]+)\s*\|\s*(MUST NOT|MUST|SHOULD|MAY)\s*\|(.*)$")
+# Korean documents use these words for the levels.
 LEVEL_WORD = {"MUST": "반드시", "MUST NOT": "절대", "SHOULD": "권장한다", "MAY": "수 있다"}
-# 영어 문서는 RFC 2119의 낱말을 그대로 쓴다. MUST는 MUST NOT의 안에서는 세지 않는다.
+# English documents use the RFC 2119 words themselves. MUST is not counted inside MUST NOT.
 LEVEL_EN = {
     "MUST": re.compile(r"\bMUST\b(?!\s+NOT\b)"),
     "MUST NOT": re.compile(r"\bMUST\s+NOT\b"),
@@ -137,12 +138,12 @@ QUOTED = re.compile(r"\"[^\"]*\"|“[^”]*”")
 
 
 def has_level(level, bold):
-    """굵은 글에 그 수준의 키워드가 한국어나 영어로 있는가. 둘 중 하나면 된다."""
+    """Does the bold text carry that level's keyword, in Korean or in English? Either is enough."""
     return LEVEL_WORD[level] in bold or bool(LEVEL_EN[level].search(bold))
 
 
 def requirement_lines(text):
-    """요구가 있을 수 있는 줄만 준다. 읽는 법, 상태의 줄, 코드 블록은 뺀다."""
+    """Yield only lines that can hold a requirement. Skips "how to read", status lines and code blocks."""
     skip_section = in_code = False
     for no, line in enumerate(text.splitlines(), 1):
         if line.strip().startswith("```"):
@@ -165,7 +166,7 @@ def cmd_keywords(args):
         for sub in ("spec", "domain", "adr"):
             files += sorted((docs / sub).glob("*.md"))
     if not files:
-        return inconclusive("keywords", "검사할 문서가 없다")
+        return inconclusive("keywords", "no documents to check")
     problems, counts = [], dict.fromkeys(LEVEL_WORD, 0)
     for f in files:
         for no, line in requirement_lines(read(f)):
@@ -176,26 +177,29 @@ def cmd_keywords(args):
                 counts[level] += bolds.count(LEVEL_WORD[level]) + len(LEVEL_EN[level].findall(bolds))
             for word in ("반드시", "절대"):
                 if word in plain:
-                    problems.append(f"{where} 굵지 않은 \"{word}\". 요구면 굵게 쓰고, 설명이면 다른 말을 쓴다")
+                    problems.append(f"{where} \"{word}\" is not bold. Bold it for a requirement; use another word for explanation")
             if re.search(r"수\s*(있|없)", plain):
-                problems.append(f"{where} 허용(MAY)이 아닌 \"수 있다/없다\". 능력과 가능성에는 다른 말을 쓴다")
+                problems.append(f"{where} \"수 있다/없다\" that is not a permission (MAY). Use other words for ability and possibility")
             m = LEVEL_ROW.match(line)
-            # 영어의 키워드는 대문자일 때만 키워드다. 수준의 열의 칸과, 굵은 키워드의 곁에 단 "(MAY)" 같은 주석은 된다.
+            # An English keyword is a keyword only in upper case. The Level cell and a note such as "(MAY)" beside a bold keyword are allowed.
             en = EN_KEYWORD.search(QUOTED.sub("", CODE.sub("", BOLD.sub("", m.group(3) if m else line))))
             if en and not has_level(en.group(), bolds):
-                problems.append(f"{where} 굵지 않은 \"{en.group()}\". 요구면 굵게 쓰고, 설명이면 소문자로 쓴다")
+                problems.append(f"{where} \"{en.group()}\" is not bold. Bold it for a requirement; write it in lower case for explanation")
             if m:
                 id_, level, rest = m.groups()
                 rest_bold = " ".join(BOLD.findall(rest))
                 if not has_level(level, rest_bold):
-                    problems.append(f"{where} {id_}의 수준은 {level}인데 문장에 굵은 \"{LEVEL_WORD[level]}\"나 \"{level}\"가 없다")
+                    problems.append(f"{where} the level of {id_} is {level} but the sentence has no bold \"{level}\" or \"{LEVEL_WORD[level]}\"")
                 if level == "MUST" and has_level("MUST NOT", rest_bold) and not has_level("MUST", rest_bold):
-                    problems.append(f"{where} {id_}의 수준은 MUST인데 문장은 금지다")
-    summary = f"문서 {len(files)}개, " + ", ".join(f"{k} {v}" for k, v in counts.items())
+                    problems.append(f"{where} the level of {id_} is MUST but the sentence is a prohibition")
+    summary = f"{len(files)} documents, " + ", ".join(f"{k} {v}" for k, v in counts.items())
     return report("keywords", problems, summary)
 
 
 # -------------------------------------------------------------- journal
+
+STEP_HEADING = re.compile(r"^## (?:Step|스텝) \d+", re.M)
+
 
 def git(*a):
     return subprocess.run(["git", *a], capture_output=True, text=True)
@@ -206,20 +210,20 @@ def cmd_journal(args):
     journal = f"{args.docs}/journal/{date}.md"
     status = git("status", "--porcelain", "--untracked-files=all")
     if status.returncode != 0:
-        return inconclusive("journal", "git 저장소가 아니다")
+        return inconclusive("journal", "not a git repository")
     changed = [line[3:].split(" -> ")[-1].strip('"') for line in status.stdout.splitlines()]
     if not changed:
         last = git("log", "-1", "--name-only", "--format=").stdout.split()
         if journal in last:
-            return report("journal", [], "작업 트리가 깨끗하다. 마지막 커밋에 오늘의 일지가 있다")
-        return report("journal", [], "작업 트리가 깨끗하다. 기록할 변경이 없다")
+            return report("journal", [], "the working tree is clean; the last commit has today's journal")
+        return report("journal", [], "the working tree is clean; there is no change to record")
     if journal in changed:
-        steps = len(re.findall(r"^## 스텝 \d+", read(journal), re.M)) if Path(journal).exists() else 0
-        return report("journal", [], f"{journal}이 바뀌었다. 스텝 {steps}개. 바뀐 파일 {len(changed)}개")
+        steps = len(STEP_HEADING.findall(read(journal))) if Path(journal).exists() else 0
+        return report("journal", [], f"{journal} changed. {steps} steps. {len(changed)} files changed")
     return report(
         "journal",
-        [f"바뀐 파일이 {len(changed)}개인데 {journal}은 바뀌지 않았다. 커밋의 전에 일지를 쓴다"],
-        "일지는 스텝마다 쓴다",
+        [f"{len(changed)} files changed but {journal} did not. Write the journal before the commit"],
+        "the journal is written for every step",
     )
 
 
@@ -230,9 +234,10 @@ REVIEW_REF = re.compile(r"`(review/[A-Za-z0-9_.\-/]+)`")
 
 
 def cmd_self(args):
-    # 수준의 키워드 판정의 자체 검사: 두 언어를 받고, MUST와 MUST NOT을 가른다.
+    # Self-check of the level test: both languages count, and MUST is told apart from MUST NOT.
     assert has_level("MUST", "**MUST**") and has_level("MUST", "**반드시**")
     assert has_level("MUST NOT", "**MUST NOT**") and not has_level("MUST", "**MUST NOT**")
+    assert len(STEP_HEADING.findall("## Step 1\n## 스텝 2\n### Step 3\n")) == 2
     root = Path(__file__).resolve().parent.parent
     router = root / "SKILL.md"
     problems = []
@@ -241,45 +246,45 @@ def cmd_self(args):
     for kind in ("playbooks", "principles"):
         on_disk = {f"{kind}/{f.name}" for f in (root / kind).glob("*.md")}
         in_index = {r for r in indexed if r.startswith(kind + "/")}
-        problems += [f"색인에 없다: {r}" for r in sorted(on_disk - in_index)]
-        problems += [f"파일이 없다: {r}" for r in sorted(in_index - on_disk)]
+        problems += [f"not in the index: {r}" for r in sorted(on_disk - in_index)]
+        problems += [f"file missing: {r}" for r in sorted(in_index - on_disk)]
     if len(router_text.splitlines()) > 150:
-        problems.append("라우터가 150줄을 넘는다. 본문을 별도의 파일로 옮긴다")
+        problems.append("the router is over 150 lines. Move body text into a separate file")
     for f in sorted(root.rglob("*.md")):
         base = f.parent if f.parent.name in ("playbooks", "principles", "references") else None
         rel = f.relative_to(root)
-        # review/ 아래의 스킬은 자기 폴더가 경로의 기준이다.
+        # A skill under review/ resolves its paths against its own folder.
         home = root / rel.parts[0] / rel.parts[1] if rel.parts[0] == "review" and len(rel.parts) > 2 else root
         for ref in REF.findall(read(f)):
             if not (home / ref).exists():
-                problems.append(f"{rel}가 없는 파일을 가리킨다: {ref}")
+                problems.append(f"{rel} points at a file that does not exist: {ref}")
         for ref in REVIEW_REF.findall(read(f)):
             if not (root / ref).exists():
-                problems.append(f"{rel}가 없는 파일을 가리킨다: {ref}")
+                problems.append(f"{rel} points at a file that does not exist: {ref}")
         if base is None:
             continue
         lines = [line for line in read(f).splitlines() if line.strip()]
         if base.name == "playbooks":
             if not lines[0].startswith("### "):
-                problems.append(f"{rel} 첫 줄이 `### 이름`이 아니다")
-            if not lines[1].startswith("**당신은"):
-                problems.append(f"{rel} 둘째 줄이 소유의 문장(`**당신은 …`)이 아니다")
-            if not lines[-1].startswith("**보고:**"):
-                problems.append(f"{rel} 마지막 줄이 `**보고:**`가 아니다")
+                problems.append(f"{rel} first line is not `### Name`")
+            if not lines[1].startswith("**You own"):
+                problems.append(f"{rel} second line is not the ownership sentence (`**You own …`)")
+            if not lines[-1].startswith("**Report:**"):
+                problems.append(f"{rel} last line is not `**Report:**`")
             steps = [line for line in lines if re.match(r"^\d+\. ", line)]
             if len(steps) < 3:
-                problems.append(f"{rel} 번호가 있는 단계가 3개보다 적다")
+                problems.append(f"{rel} has fewer than 3 numbered steps")
             if len(lines) > 25:
-                problems.append(f"{rel} 비어 있지 않은 줄이 {len(lines)}개다. 25개 이하로 줄인다")
+                problems.append(f"{rel} has {len(lines)} non-empty lines. Cut it to 25 or fewer")
             if f.name not in ("wrap-up.md",) and not any("wrap-up.md" in s for s in steps):
-                problems.append(f"{rel} 마무리(`wrap-up.md`)를 부르는 단계가 없다")
+                problems.append(f"{rel} has no step that calls the wrap-up (`wrap-up.md`)")
         if base.name == "principles":
-            for mark in ("**왜:**", "**방법:**", "**쓴 흔적:**"):
+            for mark in ("**Why:**", "**How:**", "**Evidence:**"):
                 if not any(line.startswith(mark) for line in lines):
-                    problems.append(f"{rel} `{mark}`가 없다")
+                    problems.append(f"{rel} has no `{mark}`")
     n_pb = len(list((root / "playbooks").glob("*.md")))
     n_pr = len(list((root / "principles").glob("*.md")))
-    return report("self", problems, f"playbook {n_pb}개, principle {n_pr}개, 라우터 {len(router_text.splitlines())}줄")
+    return report("self", problems, f"{n_pb} playbooks, {n_pr} principles, router {len(router_text.splitlines())} lines")
 
 
 def main():
@@ -287,7 +292,7 @@ def main():
     sub = p.add_subparsers(dest="cmd", required=True)
     t = sub.add_parser("trace")
     t.add_argument("--docs", default="docs")
-    t.add_argument("--tests", help="기본: tests, test, src/test 중 처음 있는 것")
+    t.add_argument("--tests", help="default: the first of tests, test, src/test that exists")
     t.add_argument("--no-tests", action="store_true")
     t.set_defaults(fn=cmd_trace)
     k = sub.add_parser("keywords")

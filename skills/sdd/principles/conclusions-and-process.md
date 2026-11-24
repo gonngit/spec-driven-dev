@@ -1,16 +1,16 @@
-# 결론은 문서에, 과정은 일지에
+# Conclusions in documents, process in the journal
 
-프로젝트의 문서에는 결론만 쓴다. 왜, 어떤 순서로, 무엇을 버렸는지는 일지에 쓴다. 다음 작업이 해야 하는 일은 plan에 쓴다.
+Write only conclusions in the project documents. Write why, in what order, and what was rejected in the journal. Write what the next task has to do in the plan.
 
-**왜:** 과정을 문서에 섞으면 시간의 순서가 여러 문서에 흩어진다. "남은 일"이 일지에만 있으면 process의 밖에 있다. 다음 작업이 확인하지 않는다.
+**Why:** Mixing process into the documents scatters the order of events over several documents. "Remaining work" that exists only in the journal is outside the process. The next task does not verify it.
 
-**방법:**
-- 스텝이 끝나면 일지에 쓴다. 커밋의 전에 쓴다.
-- 구현이 정한 결론은 그 주제의 문서(domain, ADR)에 적는다.
-- 남은 일은 plan의 뒤의 작업의 "검증할 내용"에 넣자고 제안한다.
-- 폐기한 아이디어와 틀린 가설은 지우지 않는다. 취소선이나 "틀렸다"로 남긴다.
-- 지난 일지는 고치지 않는다. 그때의 기록이다. 없어진 커밋의 해시도 그대로 둔다.
+**How:**
+- When a step ends, write the journal. Write it before the commit.
+- Write a conclusion reached in implementation into the document for that subject (domain, ADR).
+- Propose adding remaining work to "What to verify" of a later plan task.
+- Do not delete discarded ideas and wrong hypotheses. Keep them with a strikethrough or marked "wrong".
+- Do not edit past journals. They are the record of that time. Leave the hashes of commits that no longer exist as they are.
 
-**멈춤:** 일지를 쓰지 않고 스텝을 닫지 않는다.
+**Stop:** Do not close a step without writing the journal.
 
-**쓴 흔적:** `scripts/sdd-check.py journal`이 통과다. plan의 상태의 줄에 더한 일이 적혀 있다.
+**Evidence:** `scripts/sdd-check.py journal` passes. The plan's status line records the work that was added.

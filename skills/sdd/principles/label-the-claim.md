@@ -1,16 +1,16 @@
-# 주장에 라벨을 붙인다
+# Label the claim
 
-일지, 리뷰 메모, 보고의 사실마다 어떻게 알았는지를 적는다. 추정은 확인과 무게가 다르다.
+For every fact in the journal, a review note or a report, say how you know it. An assumption does not weigh the same as a verified fact.
 
-**왜:** 추정은 틀린다. 라벨이 없으면 추정이 사실로 읽히고, 그 위에 결정이 쌓인다.
+**Why:** Assumptions turn out wrong. Without a label an assumption reads as a fact, and decisions pile up on it.
 
-**방법:**
-- 라벨은 넷이다. **확인**: 실행해서 봤다. **읽음**: 코드나 문서를 읽었다. 실행하지 않았다. **추정**: 확인하지 않았다. **질문**: 사용자가 정할 일이다.
-- 확인에는 방법을 붙인다 ("실행해서 확인", "결함을 넣어서 확인").
-- 기억에서 나온 사실은 "기억이다. 확인하지 않았다"고 적는다.
-- 싼 추정은 확인으로 바꾼다. 바꾸지 못한 추정은 보고의 "열린 것"에 남긴다.
-- 뒤에 틀린 것을 알면 앞의 기록을 지우지 않는다. 새 스텝에 "틀렸다"와 맞는 것을 적는다.
+**How:**
+- There are four labels. **verified**: you ran it and saw it. **read**: you read the code or a document and did not run it. **assumed**: you did not verify it. **question**: it is for the user to decide.
+- Attach the method to "verified" ("verified by running it", "verified by injecting a defect").
+- Mark a fact that comes from memory "from memory, not verified".
+- Turn cheap assumptions into verified facts. Leave the ones you could not turn under "Open" in the report.
+- If you later learn that something was wrong, do not delete the earlier record. Write "wrong" and the correct fact in a new step.
 
-**멈춤:** 라벨이 없는 "아마", "~일 것이다"를 문서와 보고에 쓰지 않는다.
+**Stop:** Do not write an unlabelled "probably" or "it is likely" in documents or reports.
 
-**쓴 흔적:** 리뷰 메모의 표에 "종류"나 "확인"의 열이 있다.
+**Evidence:** The review-note table has a "Kind" or "verified" column.

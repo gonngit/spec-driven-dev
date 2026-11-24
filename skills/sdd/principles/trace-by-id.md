@@ -1,16 +1,16 @@
-# ID로 잇는다
+# Trace by ID
 
-요구와 규칙에 ID를 붙인다. 근거 → spec → domain → plan → 테스트의 이름을 ID로 잇는다.
+Give IDs to requirements and rules. Link source → spec → domain → plan → test names by ID.
 
-**왜:** 답 하나가 문서 여러 개를 바꾼다. ID가 있으면 어디를 고쳐야 하는지 바로 안다. ID가 없으면 "모든 요구에 테스트가 있다"를 확인하지 못한다.
+**Why:** One answer changes several documents. With IDs you know at once where to edit. Without IDs you cannot verify that "every requirement has a test".
 
-**방법:**
-- 수용 기준은 `AC-<목표>.<번호>`다. 도메인 규칙은 `R<번호>`다. ADR의 규칙에는 번호를 붙인다.
-- plan의 "검증할 내용"은 ID를 가리킨다. 문장을 다시 쓰지 않는다.
-- 테스트의 이름은 ID로 시작한다 (`ac1_1_…`, `r4_…`, `adr0003_…`). 실패의 글에 ID가 나온다.
-- ID를 다시 매기지 않는다. 새 항목은 끝에 붙인다. 이미 쓴 ID가 가리키는 것은 바뀌지 않는다.
-- 문서를 고친 뒤에 `scripts/sdd-check.py trace`를 돌린다.
+**How:**
+- An acceptance criterion is `AC-<goal>.<number>`. A domain rule is `R<number>`. Number the rules of an ADR.
+- The plan's "What to verify" points at IDs. Do not rewrite the sentences there.
+- A test name starts with the ID (`ac1_1_…`, `r4_…`, `adr0003_…`). The ID appears in the failure message.
+- Do not renumber IDs. Append new items at the end. What an ID already in use points at does not change.
+- After changing a document, run `scripts/sdd-check.py trace`.
 
-**멈춤:** ID가 없는 요구를 구현하지 않는다. 먼저 문서에 ID를 만든다.
+**Stop:** Do not implement a requirement that has no ID. Create the ID in the document first.
 
-**쓴 흔적:** `sdd-check.py trace`의 출력이 통과다.
+**Evidence:** The output of `sdd-check.py trace` is a pass.

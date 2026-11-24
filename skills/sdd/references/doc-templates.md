@@ -1,118 +1,118 @@
-# 문서의 틀
+# Document templates
 
-문서는 간결하게 쓴다. 대부분은 표다. 문서 하나는 질문 하나에 답한다. 문체는 `doc-style.md`를 따른다.
+Keep documents brief. Most of a document is tables. One document answers one question. Style follows `doc-style.md`. The templates below are in English; in a Korean document write the headings and sentences in Korean and use the fixed Korean forms listed in `doc-style.md`.
 
-| 문서 | 위치 | 답하는 질문 |
+| Document | Location | Question it answers |
 |---|---|---|
-| 브레인스토밍 | `docs/brainstorming/NN-<이름>.md` | 무엇을 모르는가 |
-| spec | `docs/spec/NN-<슬라이스>.md` | 무엇을 만드는가 |
-| domain | `docs/domain/NN-<이름>.md` | 어떤 말을 쓰고 무엇이 깨지면 안 되는가 |
-| ADR | `docs/adr/NNNN-<결정>.md` | 어떻게 만들고 왜 그렇게 정했는가 |
-| plan | `docs/plan/NN-<슬라이스>.md` | 어떤 순서로 만들고 무엇으로 검증하는가 |
+| Brainstorming | `docs/brainstorming/NN-<name>.md` | What is not known yet? |
+| spec | `docs/spec/NN-<slice>.md` | What is being built? |
+| domain | `docs/domain/NN-<name>.md` | Which words are used, and what must not break? |
+| ADR | `docs/adr/NNNN-<decision>.md` | How is it built, and why was that chosen? |
+| plan | `docs/plan/NN-<slice>.md` | In what order is it built, and what verifies it? |
 
 ## spec
 
 ```markdown
-# Spec NN. <슬라이스의 이름>
+# Spec NN. <name of the slice>
 
-- 상태: 초안
-- 슬라이스: <흐름>
-- 용어: [도메인 모델](../domain/NN-<이름>.md)을 따른다.
+- Status: Draft
+- Slice: <flow>
+- Terms: follow the [domain model](../domain/NN-<name>.md).
 
-이 문서는 **무엇을** 만드는지만 말한다. 만드는 방법과 기술은 ADR에 있다.
+This document says only **what** is built. How it is built and the technology are in the ADRs.
 
-## 이 문서를 읽는 법
-<키워드의 표. "시스템", "결과", "거부한다"처럼 여러 번 쓰는 말의 뜻.>
+## How to read this document
+<The keyword table. The meaning of words used many times, such as "the system", "result", "rejects".>
 
-## 목표 1. <누가 무엇을 한다>
+## Goal 1. <who does what>
 
-| ID | 수준 | 수용 기준 |
+| ID | Level | Acceptance criterion |
 |---|---|---|
-| AC-1.1 | MUST | <조건>이면 시스템은 **반드시** <결과>**해야 한다**. |
+| AC-1.1 | MUST | When <condition>, the system **MUST** <result>. |
 
-## 확정한 가정
-## 받아들인 한계
-## 범위 밖
-## 원본과 다른 점
-<옮기거나 다시 만드는 원본이 있을 때만 쓴다.>
-## 근거
-<수용 기준마다 입력 자료의 어디에서 왔는가.>
+## Confirmed assumptions
+## Accepted limits
+## Out of scope
+## Differences from the original
+<Only when there is an original that is being ported or rebuilt.>
+## Sources
+<For each acceptance criterion, where in the input material it came from.>
 ```
 
 ## domain
 
 ```markdown
-# Domain NN. <이름>
+# Domain NN. <name>
 
-- 상태: 초안
-- 범위: [Spec NN](../spec/…)에 필요한 것만 다룬다.
+- Status: Draft
+- Scope: covers only what [Spec NN](../spec/…) needs.
 
-## 용어
+## Terms
 
-| 용어 | 코드 이름 | 뜻 |
+| Term | Name in code | Meaning |
 |---|---|---|
 
-| 쓰지 않는 말 | 대신 쓰는 말 |
+| Word not used | Word used instead |
 |---|---|
 
-## 모델
-<핵심 개념과 그 관계. 도메인 모델이 아닌 것.>
+## Model
+<The core concepts and how they relate. What is not part of the domain model.>
 
-## 규칙
+## Rules
 
-| ID | 수준 | 규칙 | 지키는 곳 |
+| ID | Level | Rule | Where it is enforced |
 |---|---|---|---|
-| R1 | MUST | … | <모델이나 기능의 이름> |
+| R1 | MUST | … | <name of the model or the feature> |
 ```
 
-"지키는 곳"의 열이 plan의 작업의 범위를 정한다.
+The "Where it is enforced" column sets the scope of the plan's tasks.
 
 ## ADR
 
 ```markdown
-# ADR-NNNN. <결정의 이름>
+# ADR-NNNN. <name of the decision>
 
-- 상태: 제안 (AI가 제안)   ← 사용자가 정했으면: 승인 (사용자가 결정, 날짜)
+- Status: Proposed (by the AI)   ← if the user decided: Approved (decided by the user, date)
 
-## 맥락
-## 결정
-<요구는 키워드로 쓴다. 규칙에는 번호를 붙인다. 규칙을 검사하는 테스트가 번호를 쓴다.>
-## 결과
-<좋은 점, 나쁜 점. 결정이 유효한 조건.>
-## 버린 대안
-<대안마다 좋은 점 하나와 버린 이유.>
+## Context
+## Decision
+<Write requirements with keywords. Number the rules. The tests that check the rules use the numbers.>
+## Consequences
+<Good points, bad points. The condition under which the decision holds.>
+## Rejected alternatives
+<For each alternative, one good point and the reason it was rejected.>
 ```
 
 ## plan
 
 ```markdown
-# Plan NN. <슬라이스의 이름>
+# Plan NN. <name of the slice>
 
-- 상태: 초안. 구현은 사용자의 지시가 있을 때 시작한다.
-- 입력: Spec NN, Domain NN, ADR
+- Status: Draft. Implementation starts when the user says so.
+- Input: Spec NN, Domain NN, ADRs
 
-## 방식
-- 모든 작업은 테스트 먼저다. 실패하는 테스트 → 구현 → 통과 → 정리.
-- 작업 하나가 끝나면 전체 테스트를 돌리고, 일지를 쓴다.
-- 작업 하나는 사용자의 확인을 받은 뒤에 다음으로 간다.
+## Approach
+- Every task is test first: failing test → implementation → pass → tidy up.
+- When a task ends, run the whole test suite and write the journal.
+- Move to the next task only after the user has confirmed the current one.
 
-## 작업 순서
+## Task order
 
-| # | 작업 | 검증할 내용 |
+| # | Task | What to verify |
 |---|---|---|
-| 1 | 프로젝트의 뼈대를 만든다. | 빌드가 성공한다. 빈 프로그램이 실행된다. |
-| 2 | 구조의 규칙이 ADR에 있으면 그것을 검사하는 테스트를 쓴다. | ADR의 규칙이 테스트로 있다. 규칙을 일부러 어기면 테스트가 실패한다. |
-| 3 | <안쪽의 부품부터> | R1, R2. <통과나 실패가 나오는 문장> |
-| N | 전체의 흐름을 확인한다. | 흐름이 테스트 하나로 이어진다. 모든 AC와 R에 테스트가 있다. |
+| 1 | Create the project skeleton. | The build succeeds. An empty program runs. |
+| 2 | If the ADRs have structure rules, write the tests that check them. | The ADR rules exist as tests. Breaking a rule on purpose makes a test fail. |
+| 3 | <starting with the inner parts> | R1, R2. <a sentence that can pass or fail> |
+| N | Verify the whole flow. | The flow runs through in one test. Every AC and R has a test. |
 
-## 기능 작업의 안쪽 순서
-<전체 결과를 보는 테스트 → 안쪽의 부품마다 테스트와 구현 → 정리.>
+## Inner order of a feature task
+<A test of the whole result → a test and the implementation for each inner part → tidy up.>
 
-## 끝의 조건
-- 수용 기준 <n>개에 모두 통과하는 테스트가 있다.
-- 규칙 <n>개에 모두 통과하는 테스트가 있다.
-- 일지에 작업마다 기록이 있다.
+## End condition
+- All <n> acceptance criteria have a passing test.
+- All <n> rules have a passing test.
+- The journal has a record for every task.
 ```
 
-- "검증할 내용"은 ID와, 통과나 실패가 나오는 문장만 쓴다. 코드와 ERD는 넣지 않는다.
-- 끝의 조건의 숫자는 spec과 domain의 ID의 수와 같아야 한다.
+- "What to verify" holds only IDs and sentences that can pass or fail. Put no code and no ERD in it.
+- The numbers in the end condition must equal the number of IDs in the spec and the domain.

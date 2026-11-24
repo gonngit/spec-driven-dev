@@ -1,15 +1,15 @@
-# 규칙을 쓰인 대로 지킨다
+# Follow the rules as written
 
-MUST는 예외가 없다. 규칙이 번거로우면 규칙을 좁히지 않는다. 기록과 코드를 규칙에 맞춘다.
+A MUST has no exceptions. If a rule is inconvenient, do not narrow it. Bring the record and the code in line with the rule.
 
-**왜:** AI는 규칙을 자기 판단으로 좁힌다 ("결정이 없는 스텝은 기록하지 않아도 된다"). 규칙을 바꾸는 것은 사용자의 결정이다.
+**Why:** The AI narrows rules by its own judgement ("a step with no decision need not be recorded"). Changing a rule is the user's decision.
 
-**방법:**
-- 스텝의 시작에 프로젝트의 규칙(`CLAUDE.md`, ADR의 MUST)을 다시 읽는다.
-- 규칙을 지키지 못했으면 숨기지 않는다. 일지에 "지키지 못한 것"으로 적는다. 고칠 수 있으면 고친다.
-- 규칙이 틀렸다고 생각하면 사용자에게 말한다. 바꾸는 것은 사용자가 정한다.
-- 문서의 문장과 표가 다르게 말하면 한쪽을 고르지 않는다. 리뷰 메모로 남긴다.
+**How:**
+- At the start of a step, reread the project rules (`CLAUDE.md`, the MUSTs in the ADRs).
+- If you did not follow a rule, do not hide it. Record it in the journal under "Rules not followed". Fix it if you can.
+- If you think a rule is wrong, tell the user. The user decides whether to change it.
+- If a sentence and a table in a document say different things, do not pick one. Leave a review note.
 
-**멈춤:** 사용자가 정하지 않은 규칙의 변경을 하지 않는다.
+**Stop:** Do not make a change to the rules that the user did not decide.
 
-**쓴 흔적:** 일지에 "지키지 못한 것"의 항목이 있다 (어긴 규칙, 이유, 뒤에 닫은 방법).
+**Evidence:** The journal has a "Rules not followed" item (the rule broken, the reason, how it was closed later).

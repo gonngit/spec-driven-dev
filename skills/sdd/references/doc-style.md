@@ -1,44 +1,50 @@
-# 문서의 문체
+# Document style
 
-프로젝트의 문서의 언어와 규칙이 먼저다 (`CLAUDE.md`). 아래는 그 위에 더하는 것이다.
+The project's own language and rules for documents come first (`CLAUDE.md`). What follows is added on top.
 
-## 요구의 수준 (RFC 2119)
+## Language
 
-| 말 | RFC 2119 | 뜻 |
+- Write the project documents, the journal and commit messages in the language the user writes in: Korean or English.
+- If the project already has documents, keep their language.
+
+## Requirement levels (RFC 2119)
+
+| Keyword | Korean form | Meaning |
 |---|---|---|
-| **반드시 ~해야 한다** | MUST | 예외가 없는 요구다. |
-| **절대 ~해서는 안 된다** | MUST NOT | 예외가 없는 금지다. |
-| **~하는 것을 권장한다** | SHOULD | 이유가 있으면 따르지 않아도 된다. 예외의 조건을 함께 적는다. |
-| **~할 수 있다** | MAY | 허용이다. |
+| **MUST** | **반드시 ~해야 한다** | A requirement without exceptions. |
+| **MUST NOT** | **절대 ~해서는 안 된다** | A prohibition without exceptions. |
+| **SHOULD** | **~하는 것을 권장한다** | It need not be followed when there is a reason. Write the condition for the exception with it. |
+| **MAY** | **~할 수 있다** | Permission. |
 
-- 키워드는 굵게 쓴다. 굵은 말이 없는 문장은 설명이다.
-- 영어 문서에서는 RFC 2119의 낱말을 그대로 굵게 쓴다 (**MUST**, **MUST NOT**, **SHOULD**, **MAY**). 대문자일 때만 키워드다.
-- "~할 수 있다"는 허용의 뜻으로만 쓴다. 능력과 가능성에는 다른 말을 쓴다 ("다를 수 있다" → "다른 경우가 있다").
-- 금지는 MUST NOT으로 쓴다. 부정의 평서문("들어 있지 않다")으로 쓰지 않는다.
-- 요구의 표에는 "수준"의 열을 둔다. 열의 값과 문장의 키워드가 같아야 한다.
-- 키워드는 요구에만 쓴다. 용어의 표, 맥락, 결과, 버린 대안에는 쓰지 않는다.
-- 원래의 문장에 없던 권장이나 허용을 새로 만들지 않는다.
-- 문서의 머리에 "이 문서를 읽는 법"을 둔다. 키워드의 표는 한 문서에만 두고 다른 문서는 그 문서를 가리킨다.
+- Write keywords in bold. A sentence without a bold keyword is explanation.
+- In an English document, write the RFC 2119 words themselves in bold (**MUST**, **MUST NOT**, **SHOULD**, **MAY**). They are keywords only in upper case. Use **MAY** only for permission; for ability or possibility write "can" or "might".
+- In a Korean document, use the Korean forms. Use "~할 수 있다" only for permission; for ability or possibility use other words ("다를 수 있다" → "다른 경우가 있다").
+- Write a prohibition as MUST NOT, not as a negative statement ("it does not contain").
+- Put a "Level" column (Korean: "수준") in a requirements table. The value in the column and the keyword in the sentence must be the same.
+- Use keywords only in requirements. Do not use them in term tables, context, consequences or rejected alternatives.
+- Do not create a recommendation or a permission that the original sentence did not have.
+- Put "How to read this document" (Korean: "이 문서를 읽는 법") at the top of a document. Keep the keyword table in one document only; the other documents point to that document.
 
-## 문장 (ASD-STE100의 원칙)
+## Sentences (principles of ASD-STE100)
 
-- 주어를 적는다 ("시스템은"). 능동으로 쓴다.
-- 한 문장에 요구는 하나다. "A이거나 B이면"은 두 문장으로 나눈다.
-- 한 개념에 한 용어를 쓴다. 용어는 domain 문서의 표를 따른다.
-- 범위가 흐린 말을 쓰지 않는다 ("비어 있다", "올바른", "구분할 수 없는"). 뜻을 정하거나, 정하지 않았다고 적는다.
-- 숫자에는 단위를 적는다 (자, 바이트, 코드 포인트). 숫자의 출처를 적는다.
+- State the subject ("the system"). Use the active voice.
+- One requirement per sentence. Split "if A or B" into two sentences.
+- One term per concept. Terms follow the table in the domain document.
+- Do not use words with a blurred range ("empty", "valid", "indistinguishable"). Define the meaning, or state that it is not decided.
+- Give numbers a unit (characters, bytes, code points). Give the source of a number.
 
-## 상태의 줄
+## Status line
 
-- 문서의 첫 항목이다: `- 상태: 초안` → `제안 (AI가 제안)` → `승인 (사용자가 결정, YYYY-MM-DD)`.
-- 승인의 뒤에 고치면 줄에 더한다: `수정 (YYYY-MM-DD): 무엇을 왜`. 앞의 내용을 지우지 않는다.
-- 다시 쓰면서 뜻을 좁힌 곳은 "좁혔다"고 적는다. "뜻은 바꾸지 않았다"는 좁힌 곳이 없을 때만 쓴다.
+- It is the first item of a document: `- Status: Draft` → `Proposed (by the AI)` → `Approved (decided by the user, YYYY-MM-DD)`.
+- When you change a document after approval, add to the line: `Revised (YYYY-MM-DD): what and why`. Do not delete what was there.
+- Where a rewrite narrowed the meaning, write "narrowed". Write "the meaning did not change" only when nothing was narrowed.
+- In a Korean document: `- 상태: 초안` → `제안 (AI가 제안)` → `승인 (사용자가 결정, YYYY-MM-DD)`, and `수정 (YYYY-MM-DD): 무엇을 왜`.
 
-## ID
+## IDs
 
-- 수용 기준: `AC-<목표>.<번호>`. 도메인 규칙: `R<번호>`.
-- 다시 매기지 않는다. 새 항목은 끝에 붙인다.
+- Acceptance criterion: `AC-<goal>.<number>`. Domain rule: `R<number>`.
+- Do not renumber. Append new items at the end.
 
-## 검사
+## Check
 
-`scripts/sdd-check.py keywords`가 이 규칙의 일부를 검사한다: 수준의 열과 키워드, 굵지 않은 키워드, 허용이 아닌 "수 있다". 수준의 키워드는 한국어의 말과 영어의 낱말 중 하나가 있으면 된다.
+`scripts/sdd-check.py keywords` checks part of these rules: the Level column against the keyword, keywords that are not bold, and a Korean "수 있다" that is not a permission. A level is satisfied by either the Korean form or the English word.

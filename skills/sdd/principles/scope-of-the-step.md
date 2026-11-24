@@ -1,15 +1,15 @@
-# 스텝의 범위만 한다
+# Do only the scope of the step
 
-plan의 그 작업과 지금의 테스트가 요구하는 것만 만든다. 나머지는 그것을 요구하는 작업에서 만든다.
+Build only what this plan task and the current tests require. Build the rest in the task that requires it.
 
-**왜:** 미리 만든 것은 요구하는 테스트가 없다. 검증하지 않은 코드와 결정이 된다. 범위의 밖을 고치면 리뷰의 단위가 흐려진다.
+**Why:** Something built ahead has no test that requires it. It becomes unverified code and an unverified decision. Fixing things outside the scope blurs the unit of review.
 
-**방법:**
-- 의존성은 처음 쓰는 작업에서 더한다. 버전은 기억으로 쓰지 않는다. 출처에서 확인한다.
-- 요구하는 테스트가 없는 필드, 타입, 예외는 만들지 않는다. "남은 일"에 적는다.
-- 범위의 밖의 결함은 리뷰 메모로 남긴다. 지금 고치지 않는다.
-- 도구가 함께 넣은 것 중 요청하지 않은 것은 뺀다.
+**How:**
+- Add a dependency in the task that first uses it. Do not write a version from memory. Verify it at the source.
+- Do not create fields, types or exceptions that no test requires. Write them under "Remaining work".
+- Leave a defect outside the scope as a review note. Do not fix it now.
+- Remove what a tool added along the way that was not requested.
 
-**멈춤:** "이것도 지금 하면 좋다"가 떠오르면 만들지 않고 적는다.
+**Stop:** When "it would be good to do this now too" comes to mind, write it down instead of building it.
 
-**쓴 흔적:** 일지의 "버린 대안"과 "남은 일"에 미룬 것과 그것을 할 작업이 있다.
+**Evidence:** "Rejected alternatives" and "Remaining work" in the journal name what was postponed and the task that will do it.

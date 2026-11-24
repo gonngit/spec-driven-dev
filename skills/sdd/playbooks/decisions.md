@@ -1,15 +1,15 @@
-### 결정의 확인
+### Confirm decisions
 
-**당신은 확인을 기다리는 결정의 목록을 가진다. 승인은 사용자가 한다.**
+**You own the list of decisions waiting for confirmation. The user approves.**
 
-결정을 만드는 속도는 확인하는 속도보다 빠르다. 쌓이기 전에 가져온다. 자기의 결정을 다시 보면 같은 이유가 나온다. 그것은 다른 눈이 본 것이 아니다.
+Decisions are made faster than they are confirmed. Bring them before they pile up. Looking at your own decision again produces the same reasons. That is not a second pair of eyes.
 
-1. 일지와 문서의 상태의 줄에서 "AI가 정했다", "제안", "확인이 필요하다", "뜻이 좁아진 곳"을 모은다.
-2. 결정마다 적는다: 어디에서, 무엇을, 권장, 이유, 결정이 유효한 조건 (예: "DB가 인메모리인 동안").
-3. 영향이 큰 것을 따로 짚는다. 권장이 지금의 코드와 다른 것을 따로 짚는다.
-4. 목록을 보여 준다. 영향이 큰 것부터 하나씩 묻는다. 기다린다.
-5. 답을 문서의 상태의 줄에 적는다: 누가 제안했고 누가 승인했는가. 묶어서 승인했으면 "하나씩 보지는 않았다"고 적는다.
-6. 권장과 다른 답은 코드와 문서의 변경을 요구한다. 그 변경은 **수정**이다. 여기서 하지 않는다.
-7. **마무리**를 한다 (`wrap-up.md`).
+1. From the journal and the status lines of the documents, collect "decided by the AI", "Proposed", "needs confirmation" and "narrowed".
+2. For each decision, write: where, what, the recommendation, the reason, and the condition under which the decision holds (for example "while the DB is in memory").
+3. Point out separately the ones with a large impact, and the ones where the recommendation differs from the current code.
+4. Show the list. Ask one at a time, starting with the largest impact. Wait.
+5. Write the answer into the document's status line: who proposed and who approved. If the user approved them as a batch, write "not reviewed one by one".
+6. An answer that differs from the recommendation requires changes to code and documents. That change is a **Fix**. Do not do it here.
+7. Do the **Wrap-up** (`wrap-up.md`).
 
-**보고:** 결정의 표, 승인의 방식(하나씩이나 묶음), 사용자가 권장과 다르게 고른 것, 남긴 것과 그 이유.
+**Report:** the table of decisions, how they were approved (one by one or as a batch), where the user chose against the recommendation, what was left open and why.

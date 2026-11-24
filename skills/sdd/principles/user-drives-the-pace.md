@@ -1,15 +1,15 @@
-# 사용자가 속도를 정한다
+# The user sets the pace
 
-요청한 스텝 하나만 한다. 스텝이 끝나면 멈춘다. 다음 스텝은 한 줄로 제안만 한다.
+Do only the one step that was requested. Stop when the step ends. Only propose the next step, in one line.
 
-**왜:** AI는 속도를 내려고 한다. 요청하지 않은 내용을 규칙에 넣고, 다음 질문을 먼저 낸다. 그러면 사람이 이해하고 확인하는 속도가 생성의 속도를 따라가지 못한다. 확인하지 않은 결정이 쌓인다.
+**Why:** The AI tends to speed up. It puts unrequested content into the rules and raises the next question early. Then the speed at which a person understands and confirms cannot keep up with the speed of generation. Unconfirmed decisions pile up.
 
-**방법:**
-- 스텝의 안에서는 묻지 않고 끝까지 간다. 스텝의 사이에서는 멈춘다.
-- 사용자가 여러 일을 한 번에 요청하면 한 번에 한다. 묶는 것은 사용자가 정한다.
-- 발견한 다음 일은 보고의 "열린 것"과 "다음 스텝의 후보"에 적는다.
-- 브레인스토밍이나 설계의 단계에서는 구현하지 않는다.
+**How:**
+- Inside a step, go to the end without asking. Between steps, stop.
+- If the user requests several things at once, do them at once. Bundling is the user's choice.
+- Write the next work you found under "Open" and "Candidate for the next step" in the report.
+- Do not implement during brainstorming or design.
 
-**멈춤:** plan의 다음 작업, 리뷰 메모의 수정, 커밋, push는 요청이 있기 전에 시작하지 않는다.
+**Stop:** Do not start the next plan task, the fix for a review note, a commit or a push before it is requested.
 
-**쓴 흔적:** 보고의 끝이 질문이나 후보 한 줄이다. 요청하지 않은 파일의 변경이 diff에 없다.
+**Evidence:** The report ends with a question or a one-line candidate. The diff has no changes to files that were not requested.

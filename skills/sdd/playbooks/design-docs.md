@@ -1,16 +1,16 @@
-### 설계 문서
+### Design docs
 
-**당신은 문서 사이의 연결을 가진다.** 문서 하나는 질문 하나에 답한다. spec은 무엇을, domain은 말과 규칙을, ADR은 어떻게와 왜를, plan은 순서와 검증을 말한다.
+**You own the links between the documents.** One document answers one question. The spec says what, the domain says the words and the rules, an ADR says how and why, the plan says the order and the verification.
 
-틈은 두 문서가 만나는 곳에 생긴다. 각 문서가 깨끗한 것으로는 충분하지 않다. 구현은 하지 않는다.
+Gaps appear where two documents meet. Each document being clean is not enough. Do not implement.
 
-1. 킥오프의 결정과 입력 자료를 다시 읽는다. 있던 문서를 다시 쓰는 일이면 ID의 목록과 개수를 먼저 적는다. 이것이 기준이다.
-2. ADR이 달린 결정을 먼저 묻는다 (구조, 단계를 나누는 방법, 쓰는 기술, 검증의 방법 같은 것). 선택지와 권장을 준다. 이 답이 틀리면 문서 4종을 다시 쓴다.
-3. `references/doc-templates.md`와 `references/doc-style.md`를 읽는다. spec → domain → ADR → plan의 순서로 쓴다. 기존 코드에 이어서 하는 일이면 새로 하는 일만 문서로 쓴다. 새 일이 기대는 기존 동작은 spec의 "확정한 가정"에 적는다.
-4. 수용 기준과 규칙에 ID를 붙인다 (`principles/trace-by-id.md`). plan의 "검증할 내용"은 ID를 가리킨다. plan에 코드와 ERD를 넣지 않는다.
-5. 사용자가 정한 것은 "승인"으로, AI가 정한 것은 "제안"으로 적는다 (`principles/mark-the-source.md`).
-6. 경계의 입력을 문서에 넣어 본다: "이 요청이 오면 문서는 무엇이라고 답하는가". 단위가 다른 숫자, 두 문서가 다르게 말하는 것, 테스트할 방법이 없는 요구를 찾는다.
-7. `scripts/sdd-check.py trace --no-tests`와 `scripts/sdd-check.py keywords`를 돌린다. 다시 쓴 문서면 ID의 개수를 1번의 기준과 비교한다.
-8. **마무리**를 한다 (`wrap-up.md`).
+1. Reread the kickoff decisions and the input material. If you are rewriting existing documents, first record the list and the count of IDs. That is the baseline.
+2. Ask first about the decisions that need an ADR (the structure, how the stages are split, the technology, the way to verify, and the like). Give options and a recommendation. If this answer is wrong, all four kinds of document are rewritten.
+3. Read `references/doc-templates.md` and `references/doc-style.md`. Write in the order spec → domain → ADR → plan. When the work continues on existing code, document only the new work. Record the existing behaviour that the new work relies on under "Confirmed assumptions" in the spec.
+4. Give IDs to acceptance criteria and rules (`principles/trace-by-id.md`). The plan's "What to verify" points at IDs. Put no code and no ERD in the plan.
+5. Mark what the user decided as "Approved" and what the AI decided as "Proposed" (`principles/mark-the-source.md`).
+6. Feed boundary inputs to the documents: "when this request comes, what do the documents answer?" Look for numbers in different units, two documents that say different things, and requirements that cannot be tested.
+7. Run `scripts/sdd-check.py trace --no-tests` and `scripts/sdd-check.py keywords`. For rewritten documents, compare the ID count with the baseline of playbook step 1.
+8. Do the **Wrap-up** (`wrap-up.md`).
 
-**보고:** 문서의 목록, ID의 수, 사용자가 정한 것, AI가 제안한 것(영향이 큰 것을 따로), 검사의 출력, 경계의 입력이 찾은 빈틈, 다시 쓰면서 뜻이 좁아진 곳.
+**Report:** the list of documents, the number of IDs, what the user decided, what the AI proposed (the large-impact ones separately), the check output, the gaps the boundary inputs found, where the meaning narrowed in rewriting.

@@ -1,36 +1,36 @@
-# 보고의 형식
+# Report format
 
-스텝의 끝에 이 형식으로 답한다. 해당이 없는 절은 뺀다. 짧게 쓴다. 내용은 빼지 않는다.
+Answer in this format at the end of a step. Leave out sections that do not apply. Keep it short. Do not leave out content.
 
 ```markdown
-**목표.** <다시 말한 목표>
-**Playbook.** <이름>. 건너뛴 단계: <단계, 이유> 또는 없음.
+**Goal.** <the goal restated>
+**Playbook.** <name>. Playbook steps skipped: <playbook step, reason>, or none.
 
-**바뀐 것.** <사용자가 보는 변화를 먼저. 그다음에 코드와 문서.>
+**What changed.** <First the change the user sees. Then code and documents.>
 
-**검증.**
+**Verification.**
 
-| 확인한 것 | 방법 | 판정 | 증거 |
+| What was verified | Method | Verdict | Evidence |
 |---|---|---|---|
-| <끝의 조건이나 ID> | `<명령이나 경로>` | 확인됨 | <출력의 일부나 파일> |
-| <둘째> | `<명령>` | 미확정 | <실행하지 못한 이유> |
+| <end condition or ID> | `<command or path>` | verified | <part of the output, or a file> |
+| <second> | `<command>` | inconclusive | <why it could not be run> |
 
-**적용한 원칙.** <이름> → <그 원칙이 바꾼 결정>.
+**Principles applied.** <name> → <the decision that principle changed>.
 
-**열린 것.**
-- 확인이 필요한 결정: <n>개. <가장 영향이 큰 것>
-- 리뷰 메모: <n>개. <표의 위치>
-- 지키지 못한 것: <규칙, 이유>
-- 남은 일: <plan에 넣을 것>
+**Open.**
+- Decisions awaiting confirmation: <n>. <the one with the largest impact>
+- Review notes: <n>. <where the table is>
+- Rules not followed: <rule, reason>
+- Remaining work: <what to put into the plan>
 
-**다음 스텝의 후보.** <한 줄. 시작하지 않는다.>
+**Candidate for the next step.** <One line. Do not start it.>
 ```
 
-## 규칙
+## Rules
 
-- 판정은 셋이다: **확인됨**, **실패**, **미확정**. 미확정은 통과가 아니다.
-- "확인됨"의 증거는 실제의 출력이다. "빌드가 된다"는 동작의 증거가 아니다.
-- 증거가 없는 문장에는 라벨을 붙인다: 읽음, 추정.
-- 읽지 않은 원칙은 인용하지 않는다.
-- playbook의 `**보고:**` 줄의 항목을 "바뀐 것"과 "검증"의 안에 넣는다.
-- 확인이 필요한 결정이 5개를 넘으면 다음 스텝의 후보로 **결정의 확인**을 권한다.
+- There are three verdicts: **verified**, **failed**, **inconclusive**. Inconclusive is not a pass.
+- The evidence for "verified" is real output. "It builds" is not evidence of behaviour.
+- Label a sentence that has no evidence: read, assumed.
+- Do not cite a principle you did not read.
+- Put the items of the playbook's `**Report:**` line inside "What changed" and "Verification".
+- When more than 5 decisions await confirmation, recommend **Confirm decisions** as the candidate for the next step.

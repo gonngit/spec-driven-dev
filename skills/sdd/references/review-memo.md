@@ -1,39 +1,39 @@
-# 리뷰 메모의 형식
+# Review note format
 
-리뷰 메모는 찾은 것의 목록이다. 결정이 아니다. 고치는 것은 사용자가 정한다.
+Review notes are a list of findings. They are not decisions. The user decides what gets fixed.
 
-| # | 찾은 것 | 종류 |
+| # | Finding | Kind |
 |---|---|---|
-| 1 | <사실 하나. 숫자와 조건을 적는다> | 확인 (실행해서) |
-| 2 | <…> | 읽음 |
-| 3 | <…> | 추정 |
-| 4 | <…> | 질문 |
+| 1 | <One fact. Give numbers and conditions> | verified (by running it) |
+| 2 | <…> | read |
+| 3 | <…> | assumed |
+| 4 | <…> | question |
 
-## 종류
+## Kinds
 
-| 종류 | 뜻 |
-|---|---|
-| 확인 | 실행해서 봤다. 방법을 붙인다: 실제로 실행해서, 테스트로, 결함을 넣어서. |
-| 읽음 | 코드나 문서를 읽었다. 실행하지 않았다. |
-| 추정 | 확인하지 않았다. 확인하는 방법을 아는 대로 적는다. |
-| 질문 | 의도를 모른다. 사용자가 정할 일이다. |
+| Kind | Korean | Meaning |
+|---|---|---|
+| verified | 확인 | You ran it and saw it. Attach the method: by running it for real, by a test, by injecting a defect. |
+| read | 읽음 | You read the code or a document. You did not run it. |
+| assumed | 추정 | You did not verify it. Say how to verify it, as far as you know. |
+| question | 질문 | You do not know the intent. It is for the user to decide. |
 
-## 찾는 곳
+## Where to look
 
-- 파일에 없는 것: 기본값, 따라온 버전, 프레임워크가 더한 동작.
-- 테스트가 생각하지 않은 입력: 보이지 않는 글자, 긴 값, 틀린 타입, 동시의 요청.
-- 규칙이 놓치는 것: 검사가 보지 않는 패키지, 검사가 없는 MUST.
-- 두 문서가 만나는 곳: 단위가 다른 숫자, 문장과 표의 차이.
-- 문서의 흐린 말: 코드는 정의를 요구한다.
-- 작업에 속하지 않는 변경이 커밋에 있는가.
-- AI가 승인된 문서를 고친 곳.
+- What is not in the files: defaults, versions that were pulled in, behaviour added by a framework.
+- Inputs the tests did not think of: invisible characters, long values, wrong types, simultaneous requests.
+- What the rules miss: packages a check does not look at, a MUST without a check.
+- Where two documents meet: numbers in different units, a difference between a sentence and a table.
+- Blurred words in the documents: code demands a definition.
+- Whether the commit contains changes that do not belong to the task.
+- Places where the AI changed an approved document.
 
-## 처리
+## Handling
 
-메모의 처리는 사용자에게 묻는다. 선택지는 셋이다.
+Ask the user how to handle the notes. There are three options.
 
-- **지금 고친다** → **수정** playbook. 메모 하나에 스텝 하나다.
-- **plan에 넣는다** → 뒤의 작업의 "검증할 내용"에 더한다.
-- **남긴다** → 표에 그대로 둔다. **현황**이 다시 찾는다.
+- **Fix now** → the **Fix** playbook. One note is one step.
+- **Put into the plan** → add it to "What to verify" of a later task.
+- **Leave** → keep it in the table as it is. **Status** finds it again.
 
-미룬 메모는 다음 층에서 더 큰 모양으로 돌아오는 경우가 있다. 메모가 닫히면 닫은 스텝의 일지에 "닫힌 것"으로 적는다.
+A postponed note sometimes comes back in a larger shape at the next layer. When a note is closed, record it as "closed" in the journal of the step that closed it.
